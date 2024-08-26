@@ -32,6 +32,12 @@
         }
     }
 
+    public enum PaymentType
+    {
+        PayPalStrategy,
+        CreditCardStrategy,
+        BankTransferStrategy
+    }
     public class PaymentContext
     {
         private readonly IPaymentStrategy _paymentStrategy;

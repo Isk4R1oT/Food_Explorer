@@ -10,6 +10,7 @@
 
     public abstract class User
     {
+        public int Id { get; set; }
         public string Login { get; set; }
         public string Name { get; set; }
 
@@ -20,8 +21,13 @@
 
         public Basket Basket { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; }       
-        
+        public IEnumerable<Order> Orders { get; set; }
+
+        protected User()
+        {
+            Orders = new List<Order>();
+        }
+
     }
     public class Client : User
     {

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Food_Explorer.Models;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Food_Explorer.Entities
 {
@@ -12,7 +13,7 @@ namespace Food_Explorer.Entities
     {
         public int Id { get; set; }
 
-        /*public Adress Adress { get; set; }*/
+        public Address Address { get; set; }
 
         public OrderStateNum OrderStateNum { get; set; }
 
@@ -27,7 +28,7 @@ namespace Food_Explorer.Entities
 
         public DateOnly Date {  get; set; }
 
-        /*public Payment Payment { get; set; }*/
+        public PaymentType PaymentType { get; set; }
 
     }
     
