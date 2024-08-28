@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Catalog (Admin)";
+}
+<div class="catalog-container">
+    <div class="catalog-container-banner">
+        <div class="catalog-container-banner-content">
+            <div>
+                <img src="~/img/pngegg 1.png" alt="">
+            </div>
+            <div class="catalog-container-banner-text">
+                <h2 class="poppins-medium">Unsurpassed flavors</h2>
+                <p class="roboto-regular">Feel the care of the preparation with the selected ingredients</p>
+            </div>
+        </div>
+    </div>
+    <div class="catalog-section">
+        <h2 class="poppins-medium">Food</h2>
+        <div class="catalog-section-slider">
+            <div class="catalog-section-slider-shading">
+                <div class="catalog-section-slider-shading-left">
+                    <img src="~/img/CaretLeft.svg" onclick="moveFoodSlide(-1)">
+                </div>
+                <div class="catalog-section-slider-shading-right">
+                    <img src="~/img/CaretRight.svg" onclick="moveFoodSlide(1)">
+                </div>
+            </div>
+            <div class="catalog-section-slider-items" id="food-slider">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <div class="catalog-section-slider-items-item">
+                        <div class="catalog-section-slider-items-item-edit">
+                            <img src="~/img/Pencil.svg" alt="">
+                        </div>
+                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
+                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
+                        <h2 class="roboto-regular-big">$19,97</h2>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="catalog-section">
+        <h2 class="poppins-medium">Desserts</h2>
+        <div class="catalog-section-slider">
+            <div class="catalog-section-slider-shading">
+                <div class="catalog-section-slider-shading-left">
+                    <img src="~/img/CaretLeft.svg" onclick="moveDessertSlide(-1)">
+                </div>
+                <div class="catalog-section-slider-shading-right">
+                    <img src="~/img/CaretRight.svg" onclick="moveDessertSlide(1)">
+                </div>
+            </div>
+            <div class="catalog-section-slider-items" id="desserts-slider">
+                @for (int i = 0; i < 10; i++)
+                {
+                    <div class="catalog-section-slider-items-item">
+                        <div class="catalog-section-slider-items-item-edit">
+                            <img src="~/img/Pencil.svg" alt="">
+                        </div>
+                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
+                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
+                        <h2 class="roboto-regular-big">$19,97</h2>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="catalog-section">
+        <h2 class="poppins-medium">Drinks</h2>
+        <div class="catalog-section-slider">
+            <div class="catalog-section-slider-shading">
+                <div class="catalog-section-slider-shading-left">
+                    <img src="~/img/CaretLeft.svg" onclick="moveDrinksSlide(-1)">
+                </div>
+                <div class="catalog-section-slider-shading-right">
+                    <img src="~/img/CaretRight.svg" onclick="moveDrinksSlide(1)">
+                </div>
+            </div>
+            <div class="catalog-section-slider-items" id="drinks-slider">
+                @for(int i = 0; i < 10; i++)
+                {
+                    <div class="catalog-section-slider-items-item">
+                        <div class="catalog-section-slider-items-item-edit">
+                            <img src="~/img/Pencil.svg" alt="">
+                        </div>
+                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
+                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
+                        <h2 class="roboto-regular-big">$19,97</h2>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

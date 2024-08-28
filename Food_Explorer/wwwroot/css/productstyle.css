@@ -1,0 +1,214 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-style: "Roboto", sans-serif;
+}
+
+header {
+    position: fixed;
+    height: calc(104px - 24px * 2);
+    background-color: #00111A;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 24px 0;
+    z-index: 10;
+}
+
+.header-content {
+    width: 1122px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.header-content-logo {
+    width: 197px;
+    height: 39px;
+}
+
+.header-content-search-bar {
+    width: 810px;
+    height: 48px;
+    background-color: #0D1D25;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+    .header-content-search-bar .roboto-regular {
+        color: #7C7C8A;
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+.header-content-basket-link {
+    width: 216px;
+    height: 48px;
+    background-color: #750310;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .header-content-basket-link .poppins-medium {
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: #000A0F;
+    height: auto;
+}
+
+.product-container {
+    margin-top: 104px;
+    width: 1122px;
+    height: 100%;
+    box-sizing: border-box;
+    height: calc(100vh - 104px - 77px);
+}
+
+.product-container-back-link {
+    display: flex;
+    column-gap: 10px;
+    height: 108px;
+    align-items: center;
+}
+
+    .product-container-back-link a {
+        display: flex;
+        column-gap: 10px;
+        text-decoration: none;
+        line-height: normal;
+    }
+
+    .product-container-back-link .poppins-bold {
+        color: #E1E1E6;
+        font-size: 24px;
+        line-height: 33.6px;
+    }
+
+.product-container-info {
+    display: flex;
+    align-items: center;
+    margin-top: 42px;
+}
+
+.product-container-info-dish {
+    width: 390.11px;
+    height: 389px;
+}
+
+.product-container-info-text {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-left: 48px;
+}
+
+    .product-container-info-text .poppins-medium {
+        color: #E1E1E6;
+        font-size: 40px;
+        line-height: 56px;
+    }
+
+    .product-container-info-text .poppins-regular {
+        color: #E1E1E6;
+        font-size: 24px;
+        line-height: 33.6px;
+    }
+
+.product-container-info-text-ingridients {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.product-container-info-text-ingridients-item {
+    border-radius: 5px;
+    background-color: #192227;
+    padding: 4px 8px 4px 8px;
+}
+
+    .product-container-info-text-ingridients-item .poppins-medium {
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+.product-container-info-text-actions {
+    margin-top: 24px;
+    width: 294px;
+    height: 48px;
+    display: flex;
+    column-gap: 14px;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-container-info-text-actions-admin {
+    margin-top: 24px;
+    width: 294px;
+    height: 48px;
+    display: flex;
+    column-gap: 14px;
+    align-items: center;
+}
+
+.product-container-info-text-actions-count {
+    font-size: 20px;
+    line-height: 32px;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #E1E1E6;
+}
+
+.product-container-info-text-actions-button {
+    background-color: #750310;
+    height: 100%;
+    border-radius: 5px;
+    padding: 12px 24px 12px 24px;
+    border: none;
+    width: 162px;
+}
+
+    .product-container-info-text-actions-button .poppins-medium {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+
+footer {
+    height: 77px;
+    width: 100%;
+    background-color: #00111A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-content {
+    width: 1122px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .footer-content .roboto-regular {
+        color: #FFFAF1;
+        font-size: 14px;
+        line-height: 22.4px;
+    }

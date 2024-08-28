@@ -1,0 +1,332 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-style: "Roboto", sans-serif;
+}
+
+header {
+    position: fixed;
+    height: calc(104px - 24px * 2);
+    background-color: #00111A;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 24px 0;
+    z-index: 10;
+}
+
+.header-content {
+    width: 1122px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.header-content-logo {
+    width: 197px;
+    height: 39px;
+}
+
+.header-content-search-bar {
+    width: 810px;
+    height: 48px;
+    background-color: #0D1D25;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+    .header-content-search-bar .roboto-regular {
+        color: #7C7C8A;
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+.header-content-basket-link {
+    width: 216px;
+    height: 48px;
+    background-color: #750310;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .header-content-basket-link .poppins-medium {
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: #000A0F;
+    height: auto;
+}
+
+.add-container {
+    margin-top: 104px;
+    width: 1122px;
+    height: 100%;
+    height: calc(972px - 104px - 77px);
+}
+
+.add-container-back-link {
+    display: flex;
+    column-gap: 10px;
+    height: 98px;
+    align-items: center;
+}
+
+    .add-container-back-link a {
+        display: flex;
+        column-gap: 10px;
+        text-decoration: none;
+        line-height: normal;
+    }
+
+    .add-container-back-link .poppins-bold {
+        color: #E1E1E6;
+        font-size: 24px;
+        line-height: 33.6px;
+    }
+
+.add-container-block {
+    width: 100%;
+}
+
+    .add-container-block .poppins-medium {
+        color: #E1E1E6;
+        font-size: 32px;
+        line-height: 44.8px;
+    }
+
+.add-container-block-form {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 32px;
+}
+
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+}
+
+    .form-field:nth-child(1) {
+        width: 229px;
+    }
+
+    .form-field:nth-child(2) {
+        width: 463px;
+    }
+
+    .form-field:nth-child(3) {
+        width: 364px;
+    }
+
+    .form-field:nth-child(4) {
+        width: 837px;
+    }
+
+    .form-field:nth-child(5) {
+        width: 251px;
+    }
+
+    .form-field:nth-child(6) {
+        width: 100%;
+        height: 204px;
+    }
+
+    .form-field label {
+        color: #C4C4CC;
+        font-size: 16px;
+        line-height: 16px;
+        margin-bottom: 16px;
+    }
+
+    .form-field input {
+        background-color: #0D161B;
+        padding-left: 14px;
+        border: none;
+        border-radius: 8px;
+        height: 100%;
+        color: #C4C4CC;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 16px;
+    }
+
+        .form-field input::placeholder {
+            color: #7C7C8A;
+            font-size: 14px;
+            line-height: 16px;
+            margin-bottom: 8px;
+            font-family: "Roboto", sans-serif;
+            font-weight: 400;
+        }
+
+    .form-field select {
+        height: 48px;
+        border-radius: 8px;
+        border: none;
+        background-color: #0D161B;
+        color: #C4C4CC;
+        padding: 16px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 22.4px;
+    }
+
+    .form-field textarea {
+        width: calc(100% - 14px * 2);
+        height: 100%;
+        border-radius: 8px;
+        background-color: #0D161B;
+        border: none;
+        resize: none;
+        font-size: 14px;
+        line-height: 16px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        padding: 14px;
+        color: #7C7C8A;
+    }
+
+
+.form-field-file {
+    background-color: #0D161B;
+    padding: 12px 32px 12px 32px;
+    border: none;
+    border-radius: 8px;
+    height: 100%;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .form-field-file .poppins-medium {
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+.form-field-ingridients {
+    width: 100%;
+    flex-wrap: wrap;
+    display: flex;
+    gap: 16px;
+    padding: 8px;
+    align-items: center;
+    background-color: #0D161B;
+    border-radius: 8px;
+}
+
+.form-field-ingridients-item {
+    padding: 8px 16px 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #76797B;
+    border-radius: 8px;
+}
+
+    .form-field-ingridients-item .roboto-regular {
+        font-size: 16px;
+        line-height: 16px;
+        color: #FFFFFF;
+    }
+
+    .form-field-ingridients-item img {
+        width: 8px;
+        height: 8px;
+    }
+
+.form-field-ingridients-item-add {
+    padding: 7px 15px 7px 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border: #7C7C8A dashed 1px;
+    box-sizing: border-box;
+    border-radius: 8px;
+}
+
+    .form-field-ingridients-item-add .roboto-regular {
+        font-size: 16px;
+        line-height: 16px;
+        color: #7C7C8A;
+    }
+
+    .form-field-ingridients-item-add img {
+        width: 8px;
+        height: 8px;
+    }
+
+.add-container-block-form button {
+    width: 172px;
+    height: 48px;
+    border-radius: 5px;
+    padding: 12px 24px 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #AB4D55;
+    border: none;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+    .add-container-block-form button .poppins-medium {
+        font-size: 14px;
+        line-height: 24px;
+        color: #FFFFFF;
+    }
+
+
+.add-container-block-form-send-buttons {
+    margin-left: auto;
+    display: flex;
+    gap: 32px;
+}
+
+    .add-container-block-form-send-buttons button:nth-child(1) {
+        background-color: #0D161B;
+    }
+
+footer {
+    height: 77px;
+    width: 100%;
+    background-color: #00111A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-content {
+    width: 1122px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .footer-content .roboto-regular {
+        color: #FFFAF1;
+        font-size: 14px;
+        line-height: 22.4px;
+    }

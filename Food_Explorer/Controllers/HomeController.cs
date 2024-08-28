@@ -1,3 +1,4 @@
+using Food_Explorer.Entities;
 using Food_Explorer.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -13,20 +14,66 @@ namespace Food_Explorer.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult AddDish()
+        {
+            return View();
+        }
+        public IActionResult EditDish()
+        {
+            return View();
+        }
+        public IActionResult Basket()
+        {
+            return View();
+        }
+        public IActionResult Catalog()
+        {
+            return View();
+        }
+        public IActionResult CatalogAdmin()
+        {
+            return View();
+        }
+        public IActionResult Product()
+        {
+            return View();
+        }
+        public IActionResult ProductAdmin()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult SignIn()
         {
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpPost]
+        public IActionResult SignIn(string email, string password)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            //some logic
+            if (true)
+            {
+                return RedirectToAction("Catalog", "Home");
+            }
+            else
+            {
+                return RedirectToAction("CatalogAdmin", "Home");
+            }
         }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public void SignUp(string name, string email, string password)
+        {
+            //some logic
+            Response.ContentType = "text/html; charset=utf-8";
+            Response.WriteAsync($"<h1 style='margin: 20px 0px 0px 300px'>Вы зарегистрировались</h1>");
+        }
+
     }
 }

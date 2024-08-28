@@ -1,0 +1,68 @@
+﻿@{
+    ViewData["Title"] = "Basket";
+}
+<div class="basket-container">
+    <div class="basket-container-dishes">
+        <h2 class="poppins-medium basket-container-dishes-title">My dishes</h2>
+        <div class="basket-container-dishes-items">
+            @for(int i = 0; i < 5; i++)
+            {
+                <div class="basket-container-dishes-items-item">
+                    <img src="~/img/dish.png" alt="">
+                    <div class="basket-container-dishes-items-item-text">
+                        <div class="basket-container-dishes-items-item-text-name">
+                            <div class="basket-container-dishes-items-item-text-name-title">
+                                <h3 class="poppins-medium basket-container-dishes-items-item-text-quantity">1</h3>
+                                <h3 class="poppins-medium">x</h3>
+                                <h3 class="poppins-medium">Salada Radish</h3>
+                            </div>
+                            <p class="roboto-regular">$19.99</p>
+                        </div>
+                        <a href="#"><p class="roboto-regular">Delete</p></a>
+                    </div>
+                </div>
+            }
+            <div class="basket-container-dishes-items-total-cost poppins-medium">
+                <p>Total: $</p>
+                <p>103.32</p>
+            </div>
+        </div>
+    </div>
+    <div class="basket-container-payment">
+        <h2 class="poppins-medium basket-container-payment-title">Payment</h2>
+        <div class="basket-container-payment-block">
+            <div class="basket-container-payment-block-pay-types">
+                <div class="basket-container-payment-block-pay-types-one">
+                    <img src="~/img/PIX.svg" alt="">
+                    <p class="roboto-regular">PIX</p>
+                </div>
+                <div class="basket-container-payment-block-pay-types-two">
+                    <img src="~/img/CreditCard.svg" alt="">
+                    <p class="roboto-regular">Credit Card</p>
+                </div>
+            </div>
+            <form method="post" class="basket-container-payment-block-pay-form">
+                <div class="form-field">
+                    <label class="roboto-regular">Сard number</label>
+                    <input type="text" placeholder="0000 0000 0000 0000" name="number">
+                </div>
+                <div class="form-field-flex">
+                    <div class="form-field">
+                        <label class="roboto-regular">Validate</label>
+                        <input type="text" placeholder="12/31" name="validate">
+                    </div>
+                    <div class="form-field">
+                        <label class="roboto-regular">CVC</label>
+                        <input type="text" placeholder="123" name="cvc">
+                    </div>
+                </div>
+                <div class="form-field">
+                    <button type="submit">
+                        <img src="~/img/Receipt.svg" alt="">
+                        <p class="poppins-medium">Finalize payment</p>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

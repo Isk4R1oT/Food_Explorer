@@ -1,0 +1,303 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    font-style: "Roboto", sans-serif;
+}
+
+header {
+    position: fixed;
+    height: calc(104px - 24px * 2);
+    background-color: #00111A;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 24px 0 24px 0;
+    z-index: 10;
+}
+
+.header-content {
+    width: 1122px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.header-content-logo {
+    width: 197px;
+    height: 39px;
+}
+
+.header-content-search-bar {
+    width: 810px;
+    height: 48px;
+    background-color: #0D1D25;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+}
+
+    .header-content-search-bar .roboto-regular {
+        color: #7C7C8A;
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+.header-content-basket-link {
+    width: 216px;
+    height: 48px;
+    background-color: #750310;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .header-content-basket-link .poppins-medium {
+        color: #FFFFFF;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+main {
+    display: flex;
+    justify-content: center;
+    background-color: #000A0F;
+    height: auto;
+}
+
+.basket-container {
+    margin-top: 104px;
+    width: 1122px;
+    height: calc(100vh - 104px - 77px);
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.basket-container-dishes-title {
+    height: 111px;
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    line-height: 44.8px;
+    color: #E1E1E6;
+}
+
+.basket-container-dishes-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.basket-container-dishes-items-item {
+    width: 403px;
+    height: calc(104px - 16px * 2);
+    padding: 16px 0px 16px 0px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+    .basket-container-dishes-items-item img {
+        width: 72px;
+        height: 72px;
+    }
+
+.basket-container-dishes-items-item-text {
+    height: 51px;
+    display: flex;
+    flex-direction: column;
+}
+
+.basket-container-dishes-items-item-text-name {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+    .basket-container-dishes-items-item-text-name .roboto-regular {
+        color: #C4C4CC;
+        font-size: 12px;
+        line-height: 19.2px;
+    }
+
+.basket-container-dishes-items-item-text-name-title {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    color: #E1E1E6;
+    size: 20px;
+    line-height: 32px;
+}
+
+.basket-container-dishes-items-item-text a {
+    width: 36px;
+    text-decoration: none;
+}
+
+    .basket-container-dishes-items-item-text a .roboto-regular {
+        color: #AB4D55;
+        font-size: 12px;
+        line-height: 19.2px;
+    }
+
+.basket-container-dishes-items-total-cost {
+    display: flex;
+    align-items: center;
+    color: #E1E1E6;
+    size: 20px;
+    line-height: 32px;
+}
+
+.basket-container-payment-title {
+    height: 111px;
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    line-height: 44.8px;
+    color: #E1E1E6;
+}
+
+.basket-container-payment-block {
+    width: 530px;
+    height: 462px;
+    border: #76797B solid 1px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.basket-container-payment-block-pay-types {
+    height: 81px;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: center;
+    justify-items: center;
+}
+
+    .basket-container-payment-block-pay-types div {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        justify-content: center;
+        border-bottom: #76797B solid 1px;
+    }
+
+        .basket-container-payment-block-pay-types div:nth-child(2) {
+            width: calc(100% - 1px);
+            border-radius: 0 8px 0 0;
+            background-color: #0D161B;
+            border-left: #76797B solid 1px;
+        }
+
+        .basket-container-payment-block-pay-types div p {
+            font-size: 16px;
+            line-height: 16px;
+            color: #FFFFFF;
+        }
+
+.basket-container-payment-block-pay-form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 59px 91px 48px 91px;
+    row-gap: 37px;
+    column-gap: 17px;
+}
+
+.form-field {
+    display: flex;
+    flex-direction: column;
+    height: 72px;
+}
+
+    .form-field:nth-child(1) {
+        width: 348px;
+    }
+
+.form-field-flex .form-field:nth-child(1) {
+    width: 166px;
+}
+
+.form-field-flex .form-field:nth-child(2) {
+    width: 166px;
+}
+
+.form-field-flex {
+    display: flex;
+    gap: 17px;
+}
+
+.form-field label {
+    color: #C4C4CC;
+    font-size: 16px;
+    line-height: 16px;
+    margin-bottom: 8px;
+}
+
+.form-field input {
+    background-color: #000A0F;
+    padding-left: 14px;
+    border: white solid 1px;
+    border-radius: 8px;
+    height: 100%;
+    color: white;
+}
+
+    .form-field input::placeholder {
+        color: #7C7C8A;
+        font-size: 14px;
+        line-height: 16px;
+        margin-bottom: 8px;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+    }
+
+.form-field button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: #750310;
+    border-radius: 5px;
+    border: none;
+    height: 56px;
+}
+
+    .form-field button .poppins-medium {
+        font-size: 14px;
+        line-height: 24px;
+        color: #FFFFFF;
+    }
+
+
+
+
+footer {
+    height: 77px;
+    width: 100%;
+    background-color: #00111A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-content {
+    width: 1122px;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+    .footer-content .roboto-regular {
+        color: #FFFAF1;
+        font-size: 14px;
+        line-height: 22.4px;
+    }
