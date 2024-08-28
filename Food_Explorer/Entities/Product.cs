@@ -27,6 +27,8 @@
 
         //Состояние наличия продуктов
 
+        public byte[] Image { get; set; }
+
         public BasketItem BasketItem { get; set; }
 
         public IEnumerable<OrderItem> OrderItem { get; set; }
