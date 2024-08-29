@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Food_Explorer.Entities
@@ -14,6 +15,7 @@ namespace Food_Explorer.Entities
 
     public abstract class User
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
         public string Login { get; set; }
         public string Name { get; set; }

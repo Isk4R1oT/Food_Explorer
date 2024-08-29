@@ -6,7 +6,7 @@ namespace Food_Explorer.Entities
     {
         public int Id { get; set; }
 
-        public IEnumerable<BasketItem> BasketItems { get; set; }
+        public ICollection<BasketItem> BasketItems { get; set; }
 
         [ForeignKey("ClientId")]
         public User User { get; set; }

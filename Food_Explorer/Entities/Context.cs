@@ -7,23 +7,23 @@ namespace Food_Explorer.Entities
     {
         public Context() : base() { }
 
-        public DbSet<Product> Products { get; set; }
-        public DbSet<User> Users { get; set; }
-        public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderItem> OrderItems { get; set; }
-        public DbSet<Basket> Baskets { get; set; }
-        public DbSet<BasketItem> BasketItems { get; set; }
-        public DbSet<Address> Address { get; set; }
+        DbSet<Product> Products { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderItem> OrderItems { get; set; }
+        DbSet<Basket> Baskets { get; set; }
+        DbSet<BasketItem> BasketItems { get; set; }
+        DbSet<Address> Address { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //игорь сервер
-            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
-            //                              Initial Catalog=Food_Explorer;Integrated Security=True;
-            //                              Encrypt=True;Trust Server Certificate=True");
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
+                                         Initial Catalog=Food_Explorer;Integrated Security=True;
+                                         Encrypt=True;Trust Server Certificate=True");
 
             //михаил сервер
-            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
+            /* optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,4 +1,5 @@
 ﻿using Food_Explorer.Entities;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Food_Explorer.Models
 {
@@ -10,6 +11,7 @@ namespace Food_Explorer.Models
         IProductBuilder Price(int price);
         IProductBuilder Type(int type);
         IProductBuilder Quantity(int quantity);
+        IProductBuilder Image(string image);
         Product Create();
     }
 
@@ -23,12 +25,13 @@ namespace Food_Explorer.Models
                 case ProductType.Salad: return new Salad();
                 case ProductType.Drink: return new Drink();
                 case ProductType.Soup: return new Soup();
+                case ProductType.Deserts: return new Desert();
                 default: throw new ArgumentException($"Invalid ProductType: {productType}");
             }
         }
     }
     public class ProductBuilder : IProductBuilder
-    {       
+    {
         private readonly Product _product;
         public ProductBuilder(ProductType productType)
         {
@@ -79,6 +82,9 @@ namespace Food_Explorer.Models
             _product.ProductType = (ProductType)type;
             return this;
         }
-
+        public IProductBuilder Image(string image)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

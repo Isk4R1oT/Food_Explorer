@@ -17,7 +17,7 @@ namespace Food_Explorer.Controllers
             _context = context; 
         }
 
-        public IActionResult Catalog()
+        public async Task <IActionResult> Catalog()
         {
             // Проверяем, есть ли cookie с идентификатором анонимного пользователя
             if (Request.Cookies.ContainsKey("anonymousUserId"))
@@ -28,8 +28,11 @@ namespace Food_Explorer.Controllers
             else
             {
                 // Генерируем новый идентификатор и добавляем его в cookie
-                var newAnonymousUserId = Guid.NewGuid().ToString();
-                Response.Cookies.Append("anonymousUserId", newAnonymousUserId);
+                var newAnonymousUserId = _context.Users.Max(u=>u.Id);
+                var user = UserFactory.CreateUser(UserType.Anonym);
+                user.Id = newAnonymousUserId;
+                await new Repository<User>().CreateAsync(user);
+                Response.Cookies.Append("anonymousUserId", newAnonymousUserId.ToString());
             }
 
             // Загружаем продукты
