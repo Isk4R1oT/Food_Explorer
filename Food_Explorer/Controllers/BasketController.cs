@@ -8,5 +8,9 @@ namespace Food_Explorer.Controllers
         {
             return View();
         }
+        public IActionResult OrderHistory()
+        {
+            return View();
+        }
     }
 }

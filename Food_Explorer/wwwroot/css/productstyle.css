@@ -157,6 +157,10 @@ main {
     justify-content: center;
 }
 
+    .product-container-info-text-actions img {
+        cursor: pointer;
+    }
+
 .product-container-info-text-actions-admin {
     margin-top: 24px;
     width: 294px;
@@ -182,6 +186,10 @@ main {
     padding: 12px 24px 12px 24px;
     border: none;
     width: 162px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
     .product-container-info-text-actions-button .poppins-medium {

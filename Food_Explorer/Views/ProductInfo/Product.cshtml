@@ -33,14 +33,18 @@
                     <p class="poppins-medium">tomate</p>
                 </div>
             </div>
-            <div class="product-container-info-text-actions">
-                <img src="~/img/Minus.svg" alt="">
+            <form class="product-container-info-text-actions">
+                <img src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                 <p class="product-container-info-text-actions-count">01</p>
-                <img src="~/img/Plus.svg" alt="">
+                <input type="number" value="1" name="quantity" style="display: none;" class="product-container-info-text-actions-count-value">
+                <p style="display: none;" class="product-container-info-text-actions-price-perone">25.00</p>
+                <img src="~/img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                 <button type="submit" name="id" value="1" class="product-container-info-text-actions-button">
-                    <p class="poppins-medium">Add ∙ $25,00</p>
+                    <p class="poppins-medium">Add ∙ $</p>
+                    <p class="poppins-medium product-container-info-text-actions-button-total">25,00</p>
                 </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
+<script src="~/js/product.js"></script>

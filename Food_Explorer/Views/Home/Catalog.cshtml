@@ -27,18 +27,20 @@
             <div class="catalog-section-slider-items" id="food-slider">
                 @for (int i = 0; i < 10; i++)
                 {
-                    <div class="catalog-section-slider-items-item">
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                    <form method="get" class="catalog-section-slider-items-item">
+                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
                         <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
                         <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
                         <h2 class="roboto-regular-big">$19,97</h2>
                         <div class="catalog-section-slider-items-item-actions">
-                            <img src="~/img/Minus.svg" alt="">
+                            <input type="text" name="type" value="food" style="display: none;">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
-                            <img src="~/img/Plus.svg" alt="">
+                            <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
+                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                             <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
-                    </div>
+                    </form>
                 }
             </div>
         </div>
@@ -57,18 +59,20 @@
             <div class="catalog-section-slider-items" id="desserts-slider">
                 @for (int i = 0; i < 10; i++)
                 {
-                    <div class="catalog-section-slider-items-item">
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                    <form method="get" class="catalog-section-slider-items-item">
+                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
                         <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
                         <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
                         <h2 class="roboto-regular-big">$19,97</h2>
                         <div class="catalog-section-slider-items-item-actions">
-                            <img src="~/img/Minus.svg" alt="">
+                            <input type="text" name="type" value="dessert" style="display: none;">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
-                            <img src="~/img/Plus.svg" alt="">
+                            <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
+                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                             <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
-                    </div>
+                    </form>
                 }
             </div>
         </div>
@@ -87,20 +91,24 @@
             <div class="catalog-section-slider-items" id="drinks-slider">
                 @for(int i = 0; i < 10; i++)
                 {
-                    <div class="catalog-section-slider-items-item">
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                    <form method="get" class="catalog-section-slider-items-item">
+                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
                         <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
                         <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
                         <h2 class="roboto-regular-big">$19,97</h2>
                         <div class="catalog-section-slider-items-item-actions">
-                            <img src="~/img/Minus.svg" alt="">
+                            <input type="text" name="type" value="drink" style="display: none;">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
-                            <img src="~/img/Plus.svg" alt="">
+                            <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
+                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                             <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
-                    </div>
+                    </form>
                 }
             </div>
         </div>
     </div>
 </div>
+<script src="~/js/catalog.js"></script>
+<script src="~/js/slider.js"></script>
