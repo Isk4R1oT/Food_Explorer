@@ -7,6 +7,7 @@
         Soup = 1,
         Entree = 2,
         Drink = 3,
+        Deserts = 4
     }
 
 
@@ -23,9 +24,7 @@
 
         public ProductType ProductType { get; set; }
 
-        public int Quantity { get; set; }
-
-        //Состояние наличия продуктов
+        public int Quantity { get; set; }        
 
         public byte[] Image { get; set; }
 
@@ -59,6 +58,11 @@
     }
 
     public class Drink : Product
+    {
+
+    }
+
+    public class Desert : Product
     {
 
     }

@@ -23,13 +23,7 @@ namespace Food_Explorer.Entities
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-          /*  modelBuilder.Entity<User>()
-                .HasOne(u => u.Basket)
-                .WithOne(b => b.User)
-                .HasPrincipalKey<User>(u => u.Id)
-                .HasForeignKey<Basket>(b => b.Id);
-*/
+        {        
             modelBuilder.Entity<BasketItem>()
             .HasOne(bi => bi.Product)
             .WithOne(p => p.BasketItem)
