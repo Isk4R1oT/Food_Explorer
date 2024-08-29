@@ -25,6 +25,3 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Catalog}");
 
 app.Run();
-
-///popa
-///
