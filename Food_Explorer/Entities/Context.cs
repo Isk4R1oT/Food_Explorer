@@ -7,13 +7,13 @@ namespace Food_Explorer.Entities
     {
         public Context() : base() { }
 
-        DbSet<Product> Products { get; set; }
-        DbSet<User> Users { get; set; }
-        DbSet<Order> Orders { get; set; }
-        DbSet<OrderItem> OrderItems { get; set; }
-        DbSet<Basket> Baskets { get; set; }
-        DbSet<BasketItem> BasketItems { get; set; }
-        DbSet<Address> Address { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Address> Address { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
