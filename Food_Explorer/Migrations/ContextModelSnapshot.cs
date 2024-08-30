@@ -165,22 +165,21 @@ namespace Food_Explorer.Migrations
             modelBuilder.Entity("Food_Explorer.Entities.User", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserType")
@@ -260,6 +259,13 @@ namespace Food_Explorer.Migrations
                     b.HasBaseType("Food_Explorer.Entities.User");
 
                     b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("Food_Explorer.Entities.Anonym", b =>
+                {
+                    b.HasBaseType("Food_Explorer.Entities.User");
+
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Food_Explorer.Entities.Client", b =>
@@ -357,8 +363,7 @@ namespace Food_Explorer.Migrations
 
             modelBuilder.Entity("Food_Explorer.Entities.User", b =>
                 {
-                    b.Navigation("Basket")
-                        .IsRequired();
+                    b.Navigation("Basket");
 
                     b.Navigation("Orders");
                 });

@@ -19,6 +19,8 @@ namespace Food_Explorer.Models
                     return new Client();
                 case UserType.Admin:
                     return new Admin();
+                case UserType.Anonym:
+                    return new Anonym();
                 default:
                     throw new ArgumentException($"Invalid UserType: {userType}");
             }

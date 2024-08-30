@@ -28,11 +28,16 @@ namespace Food_Explorer.Controllers
             else
             {
                 // Генерируем новый идентификатор и добавляем его в cookie
-                var newAnonymousUserId = _context.Users.Max(u=>u.Id)+1;
                 var user = UserFactory.CreateUser(UserType.Anonym);
-                user.Id = newAnonymousUserId;
+
+                // Добавляем пользователя в репозиторий
                 await new Repository<User>().CreateAsync(user);
-                Response.Cookies.Append("anonymousUserId", newAnonymousUserId.ToString());
+
+                // Сохраняем изменения, чтобы получить автоматически сгенерированный Id
+                await _context.SaveChangesAsync(); // Убедитесь, что SaveChangesAsync вызывается в вашем методе CreateAsync
+
+                // Теперь присваиваем Id пользователя значению куки
+                Response.Cookies.Append("anonymousUserId", user.Id.ToString());
             }
 
             // Загружаем продукты

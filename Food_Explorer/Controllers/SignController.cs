@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Food_Explorer.Controllers
 {
-    public class SingController : Controller
+    public class SignController : Controller
     {
         private readonly Context _context;
 
-        public SingController(Context context)
+        public SignController(Context context)
         {
             _context = context;
         }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food_Explorer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240826143345_1")]
+    [Migration("20240830083909_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -135,6 +135,10 @@ namespace Food_Explorer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Image")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("Ingredients")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -170,19 +174,15 @@ namespace Food_Explorer.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Login")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserType")
@@ -262,6 +262,13 @@ namespace Food_Explorer.Migrations
                     b.HasBaseType("Food_Explorer.Entities.User");
 
                     b.HasDiscriminator().HasValue(1);
+                });
+
+            modelBuilder.Entity("Food_Explorer.Entities.Anonym", b =>
+                {
+                    b.HasBaseType("Food_Explorer.Entities.User");
+
+                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Food_Explorer.Entities.Client", b =>
@@ -359,8 +366,7 @@ namespace Food_Explorer.Migrations
 
             modelBuilder.Entity("Food_Explorer.Entities.User", b =>
                 {
-                    b.Navigation("Basket")
-                        .IsRequired();
+                    b.Navigation("Basket");
 
                     b.Navigation("Orders");
                 });

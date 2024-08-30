@@ -15,19 +15,19 @@ namespace Food_Explorer.Entities
 
     public abstract class User
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+       
         public int Id { get; set; }
-        public string Login { get; set; }
-        public string Name { get; set; }
+        public string? Login { get; set; }
+        public string? Name { get; set; }
 
-        public  UserType UserType { get; set; }
+        public abstract UserType UserType { get; set; }
         
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }
 
-        public Basket Basket { get; set; }
+        public Basket? Basket { get; set; }
 
-        public IEnumerable<Order> Orders { get; set; }
+        public IEnumerable<Order>? Orders { get; set; }
 
         protected User()
         {
@@ -37,15 +37,15 @@ namespace Food_Explorer.Entities
     }
     public class Client : User
     {
-        
+        public override UserType UserType { get; set; } = UserType.Client;
     }
     public class Admin : User
     {
-        
+        public override UserType UserType { get; set; } = UserType.Admin;
     }
-    public class Anonym
+    public class Anonym : User
     {
-
+        public override UserType UserType { get; set; } = UserType.Anonym;
     }
     static class PasswordHash
     {

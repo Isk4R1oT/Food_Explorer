@@ -5,9 +5,18 @@ namespace Food_Explorer.Entities
 {    
     public class Context : DbContext
     {
-        public Context() : base() { }
+        public Context() : base()
+        {
+           
+        }
 
-       public DbSet<Product> Products { get; set; }
+        public Context(DbContextOptions<Context> options)
+        : base(options)
+        {
+            
+        }
+
+        public DbSet<Product> Products { get; set; }
        public DbSet<User> Users { get; set; }
        public DbSet<Order> Orders { get; set; }
        public DbSet<OrderItem> OrderItems { get; set; }
@@ -17,13 +26,13 @@ namespace Food_Explorer.Entities
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //игорь сервер
-            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
-            //                             Initial Catalog=Food_Explorer;Integrated Security=True;
-            //                             Encrypt=True;Trust Server Certificate=True");
+           /* игорь сервер*/
+            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
+                                         Initial Catalog=Food_Explorer;Integrated Security=True;
+                                         Encrypt=True;Trust Server Certificate=True");
 
             //михаил сервер
-            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
+           /* optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");*/
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -44,7 +53,9 @@ namespace Food_Explorer.Entities
             modelBuilder.Entity<User>()
                 .HasDiscriminator<UserType>("UserType")
                 .HasValue<Client>(UserType.Client)
-                .HasValue<Admin>(UserType.Admin);
+                .HasValue<Admin>(UserType.Admin)
+                .HasValue<Anonym>(UserType.Anonym);
+
         }
 
     }
