@@ -5,18 +5,19 @@
     <div class="basket-container-dishes">
         <h2 class="poppins-medium basket-container-dishes-title">My dishes</h2>
         <div class="basket-container-dishes-items">
-            @for(int i = 0; i < 5; i++)
+            @for (int i = 1; i <= 3; i++)
             {
                 <div class="basket-container-dishes-items-item">
                     <img src="~/img/dish.png" alt="">
                     <div class="basket-container-dishes-items-item-text">
                         <div class="basket-container-dishes-items-item-text-name">
                             <div class="basket-container-dishes-items-item-text-name-title">
-                                <h3 class="poppins-medium basket-container-dishes-items-item-text-quantity">1</h3>
+                                <h3 class="poppins-medium basket-container-dishes-items-item-text-quantity">@i</h3>
                                 <h3 class="poppins-medium">x</h3>
                                 <h3 class="poppins-medium">Salada Radish</h3>
                             </div>
-                            <p class="roboto-regular">$19.99</p>
+                            <p style="display: none;" class="basket-container-dishes-items-item-text-price-perone">29.99</p>
+                            <p class="roboto-regular basket-container-dishes-items-item-text-price">$29.99</p>
                         </div>
                         <a href="#"><p class="roboto-regular">Delete</p></a>
                     </div>
@@ -24,7 +25,7 @@
             }
             <div class="basket-container-dishes-items-total-cost poppins-medium">
                 <p>Total: $</p>
-                <p>103.32</p>
+                <p class="basket-container-dishes-items-total-price"></p>
             </div>
         </div>
     </div>
@@ -32,11 +33,11 @@
         <h2 class="poppins-medium basket-container-payment-title">Payment</h2>
         <div class="basket-container-payment-block">
             <div class="basket-container-payment-block-pay-types">
-                <div class="basket-container-payment-block-pay-types-one">
-                    <img src="~/img/PIX.svg" alt="">
-                    <p class="roboto-regular">PIX</p>
+                <div class="basket-container-payment-block-pay-types-one" onclick="selectPay(1)">
+                    <img src="~/img/pay_pall.svg" alt="" width="32" height="20">
+                    <p class="roboto-regular">PayPal</p>
                 </div>
-                <div class="basket-container-payment-block-pay-types-two">
+                <div class="basket-container-payment-block-pay-types-two" onclick="selectPay(2)">
                     <img src="~/img/CreditCard.svg" alt="">
                     <p class="roboto-regular">Credit Card</p>
                 </div>
@@ -57,7 +58,7 @@
                     </div>
                 </div>
                 <div class="form-field">
-                    <button type="submit">
+                    <button type="submit" style="cursor: pointer;">
                         <img src="~/img/Receipt.svg" alt="">
                         <p class="poppins-medium">Finalize payment</p>
                     </button>
@@ -66,3 +67,4 @@
         </div>
     </div>
 </div>
+<script src="~/js/basket.js"></script>

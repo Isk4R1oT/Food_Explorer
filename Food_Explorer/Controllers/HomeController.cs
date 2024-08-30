@@ -28,7 +28,7 @@ namespace Food_Explorer.Controllers
             else
             {
                 // Генерируем новый идентификатор и добавляем его в cookie
-                var newAnonymousUserId = _context.Users.Max(u=>u.Id);
+                var newAnonymousUserId = _context.Users.Max(u=>u.Id)+1;
                 var user = UserFactory.CreateUser(UserType.Anonym);
                 user.Id = newAnonymousUserId;
                 await new Repository<User>().CreateAsync(user);

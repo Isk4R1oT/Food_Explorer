@@ -129,7 +129,7 @@ main {
     gap: 5px;
     align-items: center;
     color: #E1E1E6;
-    size: 20px;
+    font-size: 20px;
     line-height: 32px;
 }
 
@@ -148,7 +148,7 @@ main {
     display: flex;
     align-items: center;
     color: #E1E1E6;
-    size: 20px;
+    font-size: 20px;
     line-height: 32px;
 }
 
@@ -186,7 +186,13 @@ main {
         align-items: center;
         justify-content: center;
         border-bottom: #76797B solid 1px;
+        cursor: pointer;
     }
+
+        .basket-container-payment-block-pay-types div:nth-child(1) {
+            width: calc(100% - 1px);
+            border-radius: 8px 0 0 0;
+        }
 
         .basket-container-payment-block-pay-types div:nth-child(2) {
             width: calc(100% - 1px);
