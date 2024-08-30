@@ -69,6 +69,7 @@ namespace Food_Explorer.Controllers
                 if (existingClient.UserType == UserType.Anonym)
                 {
                     // Обновляем тип пользователя на "Client"
+                    existingClient = existingClient as Client;
                     existingClient.UserType = UserType.Client;
                     existingClient.Name = name;
                     existingClient.Password = PasswordHash.ComputeSHA256Hash(password);
