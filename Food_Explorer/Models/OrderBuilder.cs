@@ -33,7 +33,7 @@ namespace Food_Explorer.Models
 
         public IOrderBuilder SetAddress(Address address)
         {
-            // _order.Address = address;
+            _order.Address = address;
             return this;
         }
 

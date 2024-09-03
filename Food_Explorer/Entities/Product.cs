@@ -22,7 +22,7 @@
 
         public int Price { get; set; }
 
-        public ProductType ProductType { get; set; }
+        public abstract ProductType ProductType { get; set; }
 
         public int Quantity { get; set; }        
 
@@ -44,27 +44,27 @@
 
     public class Salad : Product
     {
-
+        public override ProductType ProductType { get; set; } = ProductType.Salad;
     }
 
     public class Soup : Product
     {
-
+        public override ProductType ProductType { get; set; } = ProductType.Soup;
     }
 
     public class Entree : Product
     {
-
+        public override ProductType ProductType { get; set; } = ProductType.Entree;
     }
 
     public class Drink : Product
     {
-
+        public override ProductType ProductType { get; set; } = ProductType.Drink;
     }
 
     public class Desert : Product
     {
-
+        public override ProductType ProductType { get; set; } = ProductType.Deserts;
     }
 
     public class ProductFactory
