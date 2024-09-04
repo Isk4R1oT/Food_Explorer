@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food_Explorer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240830083909_1")]
+    [Migration("20240903180136_1")]
     partial class _1
     {
         /// <inheritdoc />
@@ -135,9 +135,9 @@ namespace Food_Explorer.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("Image")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ingredients")
                         .IsRequired()

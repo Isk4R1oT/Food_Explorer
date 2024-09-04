@@ -8,7 +8,7 @@ function moveFoodSlide(direction) {
 
     currentIndexFood += direction;
 
-    if (currentIndexFood < 0) {
+    if (currentIndexFood < -1) {
         currentIndexFood = totalSlides - 2;
     } else if (currentIndexFood >= totalSlides - 1) {
         currentIndexFood = 0;

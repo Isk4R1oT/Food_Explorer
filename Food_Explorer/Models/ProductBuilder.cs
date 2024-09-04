@@ -7,7 +7,7 @@ namespace Food_Explorer.Models
     {
         IProductBuilder Name(string name);
         IProductBuilder Description(string descr);
-        IProductBuilder Ingredients(List<string> ingredients);
+        IProductBuilder Ingredients(string ingredients);
         IProductBuilder Price(int price);
         IProductBuilder Type(int type);
         IProductBuilder Quantity(int quantity);
@@ -22,10 +22,8 @@ namespace Food_Explorer.Models
             switch (productType)
             {
                 case ProductType.Entree: return new Entree();
-                case ProductType.Salad: return new Salad();
                 case ProductType.Drink: return new Drink();
-                case ProductType.Soup: return new Soup();
-                case ProductType.Deserts: return new Desert();
+                case ProductType.Dessert: return new Dessert();
                 default: throw new ArgumentException($"Invalid ProductType: {productType}");
             }
         }
@@ -49,7 +47,7 @@ namespace Food_Explorer.Models
         }
 
 
-        public IProductBuilder Ingredients(List<string> ingredients)
+        public IProductBuilder Ingredients(string ingredients)
         {
             _product.Ingredients = ingredients;
             return this;

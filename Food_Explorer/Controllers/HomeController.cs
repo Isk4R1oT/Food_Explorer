@@ -41,7 +41,7 @@ namespace Food_Explorer.Controllers
             }
 
             // Загружаем продукты
-            var products = _context.Products.Where(x => x.Quantity > 0).ToList();
+            var products = await _context.Products.Where(x => x.Quantity > 0).ToListAsync();
 
             // Возвращаем представление с продуктами
             return View(products);

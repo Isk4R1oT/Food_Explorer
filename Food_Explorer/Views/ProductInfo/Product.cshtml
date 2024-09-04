@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Product";
+    @model Product;
 }
 <div class="product-container">
     <div class="product-container-back-link">
@@ -9,39 +10,27 @@
         </a>
     </div>
     <div class="product-container-info">
-        <img src="~/img/dish.png" alt="" class="product-container-info-dish">
+        <img src="data:image/png;base64,@Model.Image" alt="" class="product-container-info-dish">
         <div class="product-container-info-text">
-            <h2 class="poppins-medium">Salada Ravanello</h2>
-            <p class="poppins-regular">Rabanetes, folhas verdes e molho agridoce salpicados com gergelim. O pão naan dá um toque especial.</p>
+            <h2 class="poppins-medium">@Model.Name</h2>
+            <p class="poppins-regular">@Model.Description</p>
             <div class="product-container-info-text-ingridients">
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">alface</p>
-                </div>
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">cebola</p>
-                </div>
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">pão naan</p>
-                </div>
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">pepino</p>
-                </div>
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">rabanete</p>
-                </div>
-                <div class="product-container-info-text-ingridients-item">
-                    <p class="poppins-medium">tomate</p>
-                </div>
+                @foreach(var item in Model.Ingredients.Split(','))
+                {
+                    <div class="product-container-info-text-ingridients-item">
+                        <p class="poppins-medium">@item</p>
+                    </div>
+                }
             </div>
             <form class="product-container-info-text-actions">
                 <img src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                 <p class="product-container-info-text-actions-count">01</p>
                 <input type="number" value="1" name="quantity" style="display: none;" class="product-container-info-text-actions-count-value">
-                <p style="display: none;" class="product-container-info-text-actions-price-perone">25.00</p>
+                <p style="display: none;" class="product-container-info-text-actions-price-perone">@Model.Price</p>
                 <img src="~/img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
-                <button type="submit" name="id" value="1" class="product-container-info-text-actions-button">
+                <button type="submit" name="id" value="@Model.Id" class="product-container-info-text-actions-button">
                     <p class="poppins-medium">Add ∙ $</p>
-                    <p class="poppins-medium product-container-info-text-actions-button-total">25,00</p>
+                    <p class="poppins-medium product-container-info-text-actions-button-total">@Model.Price</p>
                 </button>
             </form>
         </div>

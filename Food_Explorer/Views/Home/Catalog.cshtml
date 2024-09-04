@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Catalog";
+    @model IEnumerable<Product>
 }
 <div class="catalog-container">
     <div class="catalog-container-banner">
@@ -25,20 +26,19 @@
                 </div>
             </div>
             <div class="catalog-section-slider-items" id="food-slider">
-                @for (int i = 0; i < 10; i++)
+                @foreach (var item in Model.Where(x => x.ProductType == 0))
                 {
                     <form method="get" class="catalog-section-slider-items-item">
-                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
-                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
-                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
-                        <h2 class="roboto-regular-big">$19,97</h2>
+                        <img src="data:image/png;base64,@item.Image" alt="" class="catalog-section-slider-items-item-dish">
+                        <a style="text-decoration: none" href="/ProductInfo/Product/?id=@item.Id"><h3 class="poppins-bold">@item.Name ></h3></a>
+                        <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length-30)...</p>
+                        <h2 class="roboto-regular-big">$@item.Price</h2>
                         <div class="catalog-section-slider-items-item-actions">
-                            <input type="text" name="type" value="food" style="display: none;">
-                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
                             <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
-                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
-                            <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
+                            <img class="catalog-section-slider-items-item-actions-plus" src="~/img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
+                            <button type="submit" name="id" value="@item.Id" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
                     </form>
                 }
@@ -60,16 +60,16 @@
                 @for (int i = 0; i < 10; i++)
                 {
                     <form method="get" class="catalog-section-slider-items-item">
-                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
                         <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
                         <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
                         <h2 class="roboto-regular-big">$19,97</h2>
                         <div class="catalog-section-slider-items-item-actions">
                             <input type="text" name="type" value="dessert" style="display: none;">
-                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
                             <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
-                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
+                            <img class="catalog-section-slider-items-item-actions-plus" src="~/img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                             <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
                     </form>
@@ -92,16 +92,16 @@
                 @for (int i = 0; i < 10; i++)
                 {
                     <form method="get" class="catalog-section-slider-items-item">
-                        <img src="img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
+                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
                         <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
                         <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
                         <h2 class="roboto-regular-big">$19,97</h2>
                         <div class="catalog-section-slider-items-item-actions">
-                            <input type="text" name="type" value="drink" style="display: none;">
-                            <img class="catalog-section-slider-items-item-actions-minus" src="img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
+                            <input type="text" name="type" value="dessert" style="display: none;">
+                            <img class="catalog-section-slider-items-item-actions-minus" src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">
                             <p class="catalog-section-slider-items-item-actions-count">01</p>
                             <input type="number" name="quantity" value="1" style="display: none;" class="catalog-section-slider-items-item-actions-count-value">
-                            <img class="catalog-section-slider-items-item-actions-plus" src="img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
+                            <img class="catalog-section-slider-items-item-actions-plus" src="~/img/Plus.svg" alt="" onclick="changeQuantity(this, 1)">
                             <button type="submit" name="id" value="1" class="catalog-section-slider-items-item-actions-button"><p class="poppins-medium">Add</p></button>
                         </div>
                     </form>
@@ -111,4 +111,4 @@
     </div>
 </div>
 <script src="~/js/catalog.js"></script>
-<script src="~/js/slider.js"></script>
+<script src="~/js/slider.js" asp-append-version="true"></script>

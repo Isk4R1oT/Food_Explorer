@@ -7,7 +7,7 @@ namespace Food_Explorer.Entities
     {
         public Context() : base()
         {
-           
+            
         }
 
         public Context(DbContextOptions<Context> options)
@@ -27,12 +27,12 @@ namespace Food_Explorer.Entities
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
            /* игорь сервер*/
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
-                                         Initial Catalog=Food_Explorer;Integrated Security=True;
-                                         Encrypt=True;Trust Server Certificate=True");
+            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
+            //                             Initial Catalog=Food_Explorer;Integrated Security=True;
+            //                             Encrypt=True;Trust Server Certificate=True");
 
             //михаил сервер
-           /* optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");*/
+           optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,8 +45,7 @@ namespace Food_Explorer.Entities
 
             modelBuilder.Entity<Product>()
                .HasDiscriminator<ProductType>("ProductType")
-               .HasValue<Salad>(ProductType.Salad)
-               .HasValue<Soup>(ProductType.Soup)
+               .HasValue<Dessert>(ProductType.Dessert)
                .HasValue<Entree>(ProductType.Entree)
                .HasValue<Drink>(ProductType.Drink);
 

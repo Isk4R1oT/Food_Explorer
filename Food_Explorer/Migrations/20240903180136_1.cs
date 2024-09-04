@@ -40,7 +40,7 @@ namespace Food_Explorer.Migrations
                     Price = table.Column<int>(type: "int", nullable: false),
                     ProductType = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    Image = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    Image = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

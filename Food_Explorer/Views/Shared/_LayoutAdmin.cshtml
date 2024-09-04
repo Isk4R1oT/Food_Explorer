@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Food_Explorer</title>
+    <link rel="stylesheet" asp-href-include="~/css/*.css" asp-href-exclude="~/css/signstyle.css" asp-append-version="true" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/favicon.ico" />
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img class="header-content-logo" src="~/img/logo admin.svg" alt="">
+            <div class="header-content-search-bar">
+                <img src="~/img/search.svg" alt="">
+                <p class="roboto-regular">Search a dishes or ingredients</p>
+            </div>
+            <a class="header-content-basket-link" href="/DishRedactor/AddDish">
+                <p class="poppins-medium">Add dish</p>
+            </a>
+            <img class="header-content-exit" src="~/img/SignOut.svg" alt="">
+        </div>
+    </header>
+    <main>
+        @RenderBody()
+    </main>
+    <footer>
+        <div class="footer-content">
+            <img src="~/img/logo_dark.svg" alt="">
+            <p class="roboto-regular">© 2024 - All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

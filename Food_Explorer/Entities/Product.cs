@@ -3,11 +3,9 @@
     
     public enum ProductType
     {
-        Salad = 0,
-        Soup = 1,
-        Entree = 2,
-        Drink = 3,
-        Deserts = 4
+        Entree,
+        Drink,
+        Dessert
     }
 
 
@@ -18,7 +16,7 @@
 
         public string Description { get; set; }
 
-        public IEnumerable<string> Ingredients { get; set; }
+        public string Ingredients { get; set; }
 
         public int Price { get; set; }
 
@@ -26,7 +24,7 @@
 
         public int Quantity { get; set; }        
 
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
 
         public BasketItem BasketItem { get; set; }
 
@@ -41,17 +39,6 @@
         void CheckAvailability(Product product);
     }
 
-
-    public class Salad : Product
-    {
-        public override ProductType ProductType { get; set; } = ProductType.Salad;
-    }
-
-    public class Soup : Product
-    {
-        public override ProductType ProductType { get; set; } = ProductType.Soup;
-    }
-
     public class Entree : Product
     {
         public override ProductType ProductType { get; set; } = ProductType.Entree;
@@ -62,9 +49,9 @@
         public override ProductType ProductType { get; set; } = ProductType.Drink;
     }
 
-    public class Desert : Product
+    public class Dessert : Product
     {
-        public override ProductType ProductType { get; set; } = ProductType.Deserts;
+        public override ProductType ProductType { get; set; } = ProductType.Dessert;
     }
 
     public class ProductFactory
@@ -73,10 +60,8 @@
         {
             switch (type)
             {
-                case ProductType.Salad:
-                    return new Salad();
-                case ProductType.Soup:
-                    return new Soup();
+                case ProductType.Dessert:
+                    return new Dessert();
                 case ProductType.Entree:
                     return new Entree();
                 case ProductType.Drink:
