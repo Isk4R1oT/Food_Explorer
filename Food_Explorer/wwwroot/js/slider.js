@@ -24,7 +24,7 @@ function moveDessertSlide(direction) {
 
     currentIndexDessert += direction;
 
-    if (currentIndexDessert < 0) {
+    if (currentIndexDessert < -1) {
         currentIndexDessert = totalSlides - 2;
     } else if (currentIndexDessert >= totalSlides - 1) {
         currentIndexDessert = 0;
@@ -40,7 +40,7 @@ function moveDrinksSlide(direction) {
 
     currentIndexDrinks += direction;
 
-    if (currentIndexDrinks < 0) {
+    if (currentIndexDrinks < -1) {
         currentIndexDrinks = totalSlides - 2;
     } else if (currentIndexDrinks >= totalSlides - 1) {
         currentIndexDrinks = 0;
