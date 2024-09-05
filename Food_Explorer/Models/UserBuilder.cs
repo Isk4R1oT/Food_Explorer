@@ -53,7 +53,7 @@ namespace Food_Explorer.Models
 
         public IUserBuilder Password(string password)
         {
-            _user.Password = PasswordHash.ComputeSHA256Hash(password);
+            _user.Password = PasswordHash.Generate(password);
             return this;
         }
 

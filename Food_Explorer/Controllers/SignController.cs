@@ -8,10 +8,12 @@ namespace Food_Explorer.Controllers
     public class SignController : Controller
     {
         private readonly Context _context;
+        private readonly IPasswordHasher _passwordHasher;
 
-        public SignController(Context context)
+        public SignController(Context context, IPasswordHasher passwordHasher)
         {
             _context = context;
+            _passwordHasher = passwordHasher;
         }
 
         public IActionResult SignIn()
@@ -28,7 +30,7 @@ namespace Food_Explorer.Controllers
             if (user != null)
             {
                 // Проверяем, совпадают ли пароли
-                if (PasswordHash.CheckPass(user,password))
+                if (_passwordHasher.Verify(password,user.Password))
                 {
                     // Сохраняем идентификатор пользователя в сессию
                     HttpContext.Session.SetInt32("UserId", user.Id);
@@ -68,15 +70,12 @@ namespace Food_Explorer.Controllers
                 // Если пользователь уже существует, проверяем, был ли он ранее анонимным
                 if (existingClient.UserType == UserType.Anonym)
                 {
-                    // Обновляем тип пользователя на "Client"
-                    existingClient = existingClient as Client;
-                    existingClient.UserType = UserType.Client;
-                    existingClient.Name = name;
-                    existingClient.Password = PasswordHash.ComputeSHA256Hash(password);
-                    await _context.SaveChangesAsync();
+                    // Обновляем тип пользователя на "Client"                   
+                    await  new UserServes(_passwordHasher, new Repository<User>()).DeAnonim(existingClient, name, password);
+					
 
-                    // Сохраняем идентификатор пользователя в сессию
-                    HttpContext.Session.SetInt32("UserId", existingClient.Id);
+					// Сохраняем идентификатор пользователя в сессию
+					HttpContext.Session.SetInt32("UserId", existingClient.Id);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -88,21 +87,16 @@ namespace Food_Explorer.Controllers
             }
             else
             {
-                // Если пользователь не существует, создаем нового
-                var client = new UserBuilder(UserType.Client)
-                    .Name(name)
-                    .Email(email)
-                    .Password(PasswordHash.ComputeSHA256Hash(password))
-                    .Create();
+				// Если пользователь не существует, создаем нового
 
-                await _context.Users.AddAsync(client);
-                await _context.SaveChangesAsync();
 
-                // Сохраняем идентификатор пользователя в сессию
+               await new UserServes(_passwordHasher,new Repository<User>()).Registr(name, email, password);
 
-                HttpContext.Session.SetInt32("UserId", client.Id);
+				// Сохраняем идентификатор пользователя в сессию
 
-                return RedirectToAction("Index", "Home");
+				HttpContext.Session.SetInt32("UserId", client.Id);
+
+				return RedirectToAction("Index", "Home");
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Food_Explorer.Controllers
         public async Task <IActionResult> Catalog()
         {
             // Проверяем, есть ли cookie с идентификатором анонимного пользователя
-            if (Request.Cookies.ContainsKey("anonymousUserId"))
+            if (!Request.Cookies.ContainsKey("anonymousUserId"))
             {
                 // Получаем идентификатор из cookie
                 var anonymousUserId = Request.Cookies["anonymousUserId"];

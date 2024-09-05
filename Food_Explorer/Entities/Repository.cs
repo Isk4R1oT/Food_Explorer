@@ -21,6 +21,8 @@ namespace Food_Explorer.Entities
 
         public async Task<T> GetByIdAsync(int id) => await _context.Set<T>().FindAsync(id);
 
+        public async Task<T> GetByEmail(string email) => await _context.Set<T>().FindAsync(email);
+
         public async Task CreateAsync(T entity)
         {
             await _context.Set<T>().AddAsync(entity);
