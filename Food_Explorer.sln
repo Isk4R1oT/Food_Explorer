@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Food_Explorer", "Food_Explorer\Food_Explorer.csproj", "{0C8CBEDB-5F6E-4DBB-B7E6-AC207B7457C1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Food_Explorer", "Food_Explorer\Food_Explorer.csproj", "{0C8CBEDB-5F6E-4DBB-B7E6-AC207B7457C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,28 +1,29 @@
-﻿using Food_Explorer.Models;
+﻿using Food_Explorer.Data_Access_Layer.Entities;
+using Food_Explorer.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Food_Explorer.Entities
-{    
+namespace Food_Explorer.Data_Access_Layer
+{
     public class Context : DbContext
     {
         public Context() : base()
         {
-            
+
         }
 
         public Context(DbContextOptions<Context> options)
         : base(options)
         {
-            
+
         }
 
         public DbSet<Product> Products { get; set; }
-       public DbSet<User> Users { get; set; }
-       public DbSet<Order> Orders { get; set; }
-       public DbSet<OrderItem> OrderItems { get; set; }
-       public DbSet<Basket> Baskets { get; set; }
-       public DbSet<BasketItem> BasketItems { get; set; }
-       public DbSet<Address> Address { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<Basket> Baskets { get; set; }
+        public DbSet<BasketItem> BasketItems { get; set; }
+        public DbSet<Address> Address { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -32,15 +33,16 @@ namespace Food_Explorer.Entities
                                          Encrypt=True;Trust Server Certificate=True");
 
             //михаил сервер
-/*            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
-*/        }
+            /*            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
+            */
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {        
+        {
             modelBuilder.Entity<BasketItem>()
             .HasOne(bi => bi.Product)
             .WithOne(p => p.BasketItem)
-            .HasPrincipalKey<Product>(p=>p.Id)
+            .HasPrincipalKey<Product>(p => p.Id)
             .HasForeignKey<BasketItem>(bi => bi.Id);
 
             modelBuilder.Entity<Product>()

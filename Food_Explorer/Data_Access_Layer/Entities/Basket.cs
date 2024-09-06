@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Food_Explorer.Entities
+namespace Food_Explorer.Data_Access_Layer.Entities
 {
     public class Basket
     {

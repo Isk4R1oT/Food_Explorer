@@ -1,7 +1,7 @@
-﻿using Food_Explorer.Entities;
+﻿using Food_Explorer.Data_Access_Layer.Entities;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace Food_Explorer.Models
+namespace Food_Explorer.Data_Access_Layer.Builders
 {
     public interface IProductBuilder
     {

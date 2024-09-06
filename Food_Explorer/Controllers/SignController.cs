@@ -1,4 +1,6 @@
-﻿using Food_Explorer.Entities;
+﻿using Food_Explorer.Data_Access_Layer;
+using Food_Explorer.Data_Access_Layer.Entities;
+using Food_Explorer.Data_Access_Layer.JWT;
 using Food_Explorer.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +11,13 @@ namespace Food_Explorer.Controllers
     {
         private readonly Context _context;
         private readonly IPasswordHasher _passwordHasher;
+        private readonly IJwtProvider _jwtProvider;
 
-        public SignController(Context context, IPasswordHasher passwordHasher)
+        public SignController(Context context, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
         {
             _context = context;
             _passwordHasher = passwordHasher;
+            _jwtProvider = jwtProvider;
         }
 
         public IActionResult SignIn()
@@ -52,52 +56,51 @@ namespace Food_Explorer.Controllers
             return View();
         }
 
+
         public IActionResult SignUp()
         {
             return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignUp(string name, string email, string password)
-        {
-            Response.ContentType = "text/html; charset=utf-8";
-            Response.WriteAsync($"<h1 style='margin: 20px 0px 0px 300px'>Вы зарегистрировались</h1>");
+		public async Task<IActionResult> SignUp(string name, string email, string password)
+		{
+			Response.ContentType = "text/html; charset=utf-8";
+			Response.WriteAsync($"<h1 style='margin: 20px 0px 0px 300px'>Вы зарегистрировались</h1>");
 
-            // Проверяем, есть ли пользователь с таким email
-            var existingClient = await _context.Users.FirstOrDefaultAsync(c => c.Email == email);
-            if (existingClient != null)
-            {
-                // Если пользователь уже существует, проверяем, был ли он ранее анонимным
-                if (existingClient.UserType == UserType.Anonym)
-                {
-                    // Обновляем тип пользователя на "Client"                   
-                    await  new UserServes(_passwordHasher, new Repository<User>()).DeAnonim(existingClient, name, password);
-					
+			// Проверяем, есть ли пользователь с таким email
+			var existingClient = await _context.Users.FirstOrDefaultAsync(c => c.Email == email);
+			if (existingClient != null)
+			{
+				// Если пользователь уже существует, проверяем, был ли он ранее анонимным
+				if (existingClient.UserType == UserType.Anonym)
+				{
+					// Обновляем тип пользователя на "Client"                   
+					await new UserServes(_passwordHasher, new Repository<User>(), _jwtProvider).DeAnonim(existingClient, name, password);
 
-					// Сохраняем идентификатор пользователя в сессию
-					HttpContext.Session.SetInt32("UserId", existingClient.Id);
+					// Генерируем новый JWT токен для аутентифицированного пользователя
+					var token = _jwtProvider.GenerateToken(existingClient);
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    // Если пользователь не был анонимным, возвращаем ошибку
-                    throw new Exception($"Пользователь с email {email} уже существует.");
-                }
-            }
-            else
-            {
+					// Возвращаем токен в ответе
+					return Ok(new { Token = token });
+				}
+				else
+				{
+					// Если пользователь не был анонимным, возвращаем ошибку
+					throw new Exception($"Пользователь с email {email} уже существует.");
+				}
+			}
+			else
+			{
 				// Если пользователь не существует, создаем нового
+				var client = await new UserServes(_passwordHasher, new Repository<User>(), _jwtProvider).Registr(name, email, password);
 
+				// Генерируем новый JWT токен для нового пользователя
+				var token = _jwtProvider.GenerateToken(client);
 
-               await new UserServes(_passwordHasher,new Repository<User>()).Registr(name, email, password);
-
-				// Сохраняем идентификатор пользователя в сессию
-
-				HttpContext.Session.SetInt32("UserId", client.Id);
-
-				return RedirectToAction("Index", "Home");
-            }
-        }
-    }
+				// Возвращаем токен в ответе
+				return Ok(new { Token = token });
+			}
+		}
+	}
 }

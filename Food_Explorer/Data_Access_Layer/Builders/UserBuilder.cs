@@ -1,6 +1,7 @@
-﻿using Food_Explorer.Entities;
+﻿using Food_Explorer.Data_Access_Layer;
+using Food_Explorer.Data_Access_Layer.Entities;
 
-namespace Food_Explorer.Models
+namespace Food_Explorer.Data_Access_Layer.Builders
 {
     public interface IUserBuilder
     {
@@ -53,7 +54,7 @@ namespace Food_Explorer.Models
 
         public IUserBuilder Password(string password)
         {
-            _user.Password = PasswordHash.Generate(password);
+            _user.Password = new PasswordHash().Generate(password);
             return this;
         }
 

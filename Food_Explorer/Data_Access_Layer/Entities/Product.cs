@@ -1,6 +1,6 @@
-﻿namespace Food_Explorer.Entities
+﻿namespace Food_Explorer.Data_Access_Layer.Entities
 {
-    
+
     public enum ProductType
     {
         Entree,
@@ -22,7 +22,7 @@
 
         public abstract ProductType ProductType { get; set; }
 
-        public int Quantity { get; set; }        
+        public int Quantity { get; set; }
 
         public string Image { get; set; }
 
@@ -52,24 +52,6 @@
     public class Dessert : Product
     {
         public override ProductType ProductType { get; set; } = ProductType.Dessert;
-    }
-
-    public class ProductFactory
-    {
-        public static Product CreateProduct(ProductType type)
-        {
-            switch (type)
-            {
-                case ProductType.Dessert:
-                    return new Dessert();
-                case ProductType.Entree:
-                    return new Entree();
-                case ProductType.Drink:
-                    return new Drink();
-                default:
-                    throw new ArgumentException($"Invalid product type: {type}");
-            }
-        }
     }
 
 }

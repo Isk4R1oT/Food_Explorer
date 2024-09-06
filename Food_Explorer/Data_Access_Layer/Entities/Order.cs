@@ -1,7 +1,7 @@
 ﻿using Food_Explorer.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Food_Explorer.Entities
+namespace Food_Explorer.Data_Access_Layer.Entities
 {
     public enum OrderStateNum
     {
@@ -26,12 +26,12 @@ namespace Food_Explorer.Entities
 
         public User User { get; set; }
 
-        public DateOnly Date {  get; set; }
+        public DateOnly Date { get; set; }
 
         public PaymentType PaymentType { get; set; }
 
     }
-    
+
     public class OrderItem
     {
         public int Id { get; set; }
@@ -43,7 +43,7 @@ namespace Food_Explorer.Entities
         public Product Product { get; set; }
     }
 
-    
+
     public interface IOrderState
     {
         void ProcessOrder(Order order);
@@ -81,5 +81,5 @@ namespace Food_Explorer.Entities
             order.IsComplited = true;
         }
     }
-    
+
 }

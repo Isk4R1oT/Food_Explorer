@@ -1,4 +1,5 @@
-﻿using Food_Explorer.Entities;
+﻿using Food_Explorer.Data_Access_Layer;
+using Food_Explorer.Data_Access_Layer.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

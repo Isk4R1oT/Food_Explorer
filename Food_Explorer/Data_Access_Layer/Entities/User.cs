@@ -2,10 +2,10 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Food_Explorer.Entities
+namespace Food_Explorer.Data_Access_Layer.Entities
 {
 
-    
+
     public enum UserType
     {
         Client,
@@ -15,13 +15,13 @@ namespace Food_Explorer.Entities
 
     public abstract class User
     {
-       
+
         public int Id { get; set; }
         public string? Login { get; set; }
         public string? Name { get; set; }
 
         public abstract UserType UserType { get; set; }
-        
+
         public string? Email { get; set; }
         public string? Password { get; set; }
 
@@ -46,5 +46,5 @@ namespace Food_Explorer.Entities
     public class Anonym : User
     {
         public override UserType UserType { get; set; } = UserType.Anonym;
-    }    
+    }
 }

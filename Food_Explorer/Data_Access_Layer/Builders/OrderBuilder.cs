@@ -1,9 +1,10 @@
-﻿using Food_Explorer.Entities;
+﻿using Food_Explorer.Data_Access_Layer.Entities;
+using Food_Explorer.Models;
 using System.Net;
 
-namespace Food_Explorer.Models
+namespace Food_Explorer.Data_Access_Layer.Builders
 {
-    public interface IOrderBuilder 
+    public interface IOrderBuilder
     {
         IOrderBuilder AddOrderItem(OrderItem orderItem);
         IOrderBuilder SetAddress(Address address);
@@ -12,7 +13,7 @@ namespace Food_Explorer.Models
         IOrderBuilder SetDate();
         Order Build();
     }
-   
+
     public class OrderBuilder : IOrderBuilder
     {
         private readonly Order _order;

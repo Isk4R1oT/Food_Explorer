@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace Food_Explorer.Entities
+namespace Food_Explorer.Data_Access_Layer
 {
-    interface IGenericRepository<T> where T : class
+    public interface IGenericRepository<T> where T : class
     {
         Task<IEnumerable<T>> GetAllAsync();
         Task<T> GetByIdAsync(int id);
         Task CreateAsync(T entity);
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
-    }
+        Task<T> GetByEmail(string email);
+
+	}
 
     public class Repository<T> : IGenericRepository<T> where T : class
     {
