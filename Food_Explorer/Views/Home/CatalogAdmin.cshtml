@@ -1,6 +1,7 @@
 ﻿@{
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Catalog (Admin)";
+    @model IEnumerable<Product>
 }
 <div class="catalog-container">
     <div class="catalog-container-banner">
@@ -26,17 +27,17 @@
                 </div>
             </div>
             <div class="catalog-section-slider-items" id="food-slider">
-                @for (int i = 0; i < 10; i++)
+                @foreach (var item in Model.Where(x => x.ProductType == (ProductType)0))
                 {
-                    <div class="catalog-section-slider-items-item">
+                    <form method="get" class="catalog-section-slider-items-item">
                         <div class="catalog-section-slider-items-item-edit">
-                            <img src="~/img/Pencil.svg" alt="">
+                            <a style="text-decoration: none" href="/DishRedactor/EditDish/?id=@item.Id"><img src="~/img/Pencil.svg" alt=""></a>
                         </div>
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
-                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
-                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
-                        <h2 class="roboto-regular-big">$19,97</h2>
-                    </div>
+                        <img src="data:image/png;base64,@item.Image" alt="" class="catalog-section-slider-items-item-dish">
+                        <a style="text-decoration: none" href="/ProductInfo/ProductAdmin/?id=@item.Id"><h3 class="poppins-bold">@item.Name ></h3></a>
+                        <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length - 30)...</p>
+                        <h2 class="roboto-regular-big">$@item.Price</h2>
+                    </form>
                 }
             </div>
         </div>
@@ -53,17 +54,17 @@
                 </div>
             </div>
             <div class="catalog-section-slider-items" id="desserts-slider">
-                @for (int i = 0; i < 10; i++)
+                @foreach (var item in Model.Where(x => x.ProductType == (ProductType)2))
                 {
-                    <div class="catalog-section-slider-items-item">
+                    <form method="get" class="catalog-section-slider-items-item">
                         <div class="catalog-section-slider-items-item-edit">
-                            <img src="~/img/Pencil.svg" alt="">
+                            <a style="text-decoration: none" href="/DishRedactor/EditDish/?id=@item.Id"><img src="~/img/Pencil.svg" alt=""></a>
                         </div>
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
-                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
-                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
-                        <h2 class="roboto-regular-big">$19,97</h2>
-                    </div>
+                        <img src="data:image/png;base64,@item.Image" alt="" class="catalog-section-slider-items-item-dish">
+                        <a style="text-decoration: none" href="/ProductInfo/ProductAdmin/?id=@item.Id"><h3 class="poppins-bold">@item.Name ></h3></a>
+                        <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length - 30)...</p>
+                        <h2 class="roboto-regular-big">$@item.Price</h2>
+                    </form>
                 }
             </div>
         </div>
@@ -80,19 +81,20 @@
                 </div>
             </div>
             <div class="catalog-section-slider-items" id="drinks-slider">
-                @for(int i = 0; i < 10; i++)
+                @foreach (var item in Model.Where(x => x.ProductType == (ProductType)1))
                 {
-                    <div class="catalog-section-slider-items-item">
+                    <form method="get" class="catalog-section-slider-items-item">
                         <div class="catalog-section-slider-items-item-edit">
-                            <img src="~/img/Pencil.svg" alt="">
+                            <a style="text-decoration: none" href="/DishRedactor/EditDish/?id=@item.Id"><img src="~/img/Pencil.svg" alt=""></a>
                         </div>
-                        <img src="~/img/dish.png" alt="" class="catalog-section-slider-items-item-dish">
-                        <h3 class="poppins-bold">Spaguetti Gambe  ></h3>
-                        <p class="roboto-regular">Massa fresca com camarões e pesto.</p>
-                        <h2 class="roboto-regular-big">$19,97</h2>
-                    </div>
+                        <img src="data:image/png;base64,@item.Image" alt="" class="catalog-section-slider-items-item-dish">
+                        <a style="text-decoration: none" href="/ProductInfo/ProductAdmin/?id=@item.Id"><h3 class="poppins-bold">@item.Name ></h3></a>
+                        <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length - 30)...</p>
+                        <h2 class="roboto-regular-big">$@item.Price</h2>
+                    </form>
                 }
             </div>
         </div>
     </div>
 </div>
+<script src="~/js/slider.js" asp-append-version="true"></script>

@@ -28,13 +28,13 @@ namespace Food_Explorer.Data_Access_Layer
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             /* игорь сервер*/
-            optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
-                                         Initial Catalog=Food_Explorer;Integrated Security=True;
-                                         Encrypt=True;Trust Server Certificate=True");
+            //optionsBuilder.UseSqlServer(@"Data Source=DESKTOP-M0BO597\SQLEXPRESS;
+            //                             Initial Catalog=Food_Explorer;Integrated Security=True;
+            //                             Encrypt=True;Trust Server Certificate=True");
 
             //михаил сервер
-            /*            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
-            */
+            optionsBuilder.UseSqlServer(@"Data Source=HOME-PC\MSSQLSERVER01;Initial Catalog=Food_Explorer;Integrated Security=True;Encrypt=False");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

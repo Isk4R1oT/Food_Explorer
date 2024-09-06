@@ -6,14 +6,15 @@ namespace Food_Explorer.Controllers
 {
     public class ProductInfoController : Controller
     {
-        public async Task <IActionResult>Product(int id)
+        public async Task <IActionResult> Product(int id)
         {
             var product = await new Repository<Product>().GetByIdAsync(id);
             return View(product);
         }
-        public IActionResult ProductAdmin()
+        public async Task<IActionResult> ProductAdmin(int id)
         {
-            return View();
+            var product = await new Repository<Product>().GetByIdAsync(id);
+            return View(product);
         }
     }
 }

@@ -12,13 +12,14 @@
     </div>
     <div class="add-container-block">
         <h2 class="poppins-medium">Adding a dish</h2>
-        <form method="post" class="add-container-block-form">
+        <form method="post" class="add-container-block-form" enctype="multipart/form-data">
             <div class="form-field">
                 <label class="roboto-regular">Image for dish</label>
                 <div class="form-field-file">
                     <img src="~/img/UploadSimple.svg" alt="">
                     <p class="poppins-medium">Select image</p>
                 </div>
+                <input style="display: none;" type="file" accept=".jpg, .png, .jpeg|image/*" name="image" id="imageInput">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Name</label>
@@ -27,35 +28,20 @@
             <div class="form-field">
                 <label class="roboto-regular">Category</label>
                 <select name="category">
-                    <option value="1">Food</option>
-                    <option value="2">Drinks</option>
+                    <option value="0">Entree</option>
+                    <option value="1">Drinks</option>
                     <option value="2">Desserts</option>
                 </select>
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Image for dish</label>
                 <div class="form-field-ingridients">
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
                     <span class="form-field-ingridients-item-add">
                         <p class="roboto-regular">Add</p>
                         <img src="~/img/Plus.svg" alt="">
                     </span>
                 </div>
+                <input type="hidden" name="ingridients" id="ingredientsList">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Price</label>
@@ -70,4 +56,5 @@
             </button>
         </form>
     </div>
+    <script src="~/js/editor.js"></script>
 </div>

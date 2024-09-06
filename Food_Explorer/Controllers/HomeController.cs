@@ -96,9 +96,10 @@ namespace Food_Explorer.Controllers
 			return View(products);
 		}
 
-		public IActionResult CatalogAdmin()
+		public async Task<IActionResult> CatalogAdmin()
 		{
-			return View();
+            var products = await _context.Products.Where(x => x.Quantity > 0).ToListAsync();
+            return View(products);
 		}
 
 	}

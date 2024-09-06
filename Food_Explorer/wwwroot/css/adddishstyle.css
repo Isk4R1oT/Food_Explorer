@@ -136,6 +136,7 @@ main {
 
     .form-field:nth-child(4) {
         width: 837px;
+        height: auto;
     }
 
     .form-field:nth-child(5) {
@@ -216,6 +217,7 @@ main {
     align-items: center;
     justify-content: center;
     gap: 8px;
+    cursor: pointer;
 }
 
     .form-field-file .poppins-medium {
@@ -253,6 +255,7 @@ main {
     .form-field-ingridients-item img {
         width: 8px;
         height: 8px;
+        cursor: pointer;
     }
 
 .form-field-ingridients-item-add {
@@ -264,6 +267,7 @@ main {
     border: #7C7C8A dashed 1px;
     box-sizing: border-box;
     border-radius: 8px;
+    cursor: pointer;
 }
 
     .form-field-ingridients-item-add .roboto-regular {

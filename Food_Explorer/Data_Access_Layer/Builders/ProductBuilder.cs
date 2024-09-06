@@ -82,7 +82,8 @@ namespace Food_Explorer.Data_Access_Layer.Builders
         }
         public IProductBuilder Image(string image)
         {
-            throw new NotImplementedException();
+            _product.Image = image;
+            return this;
         }
     }
 }
