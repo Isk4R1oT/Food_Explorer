@@ -17,7 +17,8 @@ namespace Food_Explorer.Data_Access_Layer.Entities
     {
 
         public int Id { get; set; }
-        public string? Login { get; set; }
+		public string Token { get; set; }
+		public string? Login { get; set; }
         public string? Name { get; set; }
 
         public abstract UserType UserType { get; set; }
@@ -25,7 +26,9 @@ namespace Food_Explorer.Data_Access_Layer.Entities
         public string? Email { get; set; }
         public string? Password { get; set; }
 
-        public Basket? Basket { get; set; }
+        public DateTime CreatedAt { get; set; }
+
+		public Basket? Basket { get; set; }
 
         public IEnumerable<Order>? Orders { get; set; }
 

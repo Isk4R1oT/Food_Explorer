@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Food_Explorer.Data_Access_Layer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Food_Explorer.Data_Access_Layer
 {
@@ -10,6 +11,10 @@ namespace Food_Explorer.Data_Access_Layer
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<T> GetByEmail(string email);
+        Task<User> GetByToken(string token); 
+        Task<IEnumerable<User>> GetAnonymousUsersOlderThan(DateTime dateTime);
+
+
 
 	}
 
@@ -42,5 +47,16 @@ namespace Food_Explorer.Data_Access_Layer
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
         }
-    }
+
+        public async Task<User> GetByToken(string token)=>
+            string.IsNullOrEmpty(token)?null: await _context.Users
+				.FirstOrDefaultAsync(u => u.Token == token);
+
+		public async Task<IEnumerable<User>> GetAnonymousUsersOlderThan(DateTime thresholdDate)
+		{
+			return await _context.Users
+				.Where(u => u.UserType == UserType.Anonym && u.CreatedAt < thresholdDate) 
+				.ToListAsync();
+		}
+	}
 }

@@ -39,31 +39,58 @@ namespace Food_Explorer.Controllers
 		{
 			if (string.IsNullOrEmpty(tokenRequest.Token))
 			{
-				// Создание анонимного пользователя
+				// Создание нового анонимного пользователя
 				var user = UserFactory.CreateUser(UserType.Anonym);
-				await _repository.CreateAsync(user);
-				await _context.SaveChangesAsync();
 				var jwtToken = _jwtProvider.GenerateToken(user);
-
+				user.Token = jwtToken;
+				/*SetAuthToken(jwtToken);*/
+				await _repository.CreateAsync(user);				
 				return Ok(new { Token = jwtToken });
 			}
-			else
+
+			try
 			{
-				var principal = ValidateToken(tokenRequest.Token);
-				if (principal != null)
+				// Валидация предоставленного токена
+				var existingUser = await _repository.GetByToken(tokenRequest.Token);
+				if (existingUser != null)
 				{
-					var userId = principal.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-					var existingUser = await _repository.GetByIdAsync(int.Parse(userId));
-					return existingUser != null ? Ok(existingUser) : NotFound("Пользователь не найден.");
+					// Если токен действителен, возвращаем существующего пользователя
+					var claimsPrincipal = ValidateToken(tokenRequest.Token, existingUser);
+					if (claimsPrincipal != null)
+					{
+						// Обновляем токен, если это необходимо (например, если он скоро истечет)
+						existingUser.Token = _jwtProvider.GenerateToken(existingUser);
+						await _repository.UpdateAsync(existingUser); // Обновление пользователя с новым токеном
+						return Ok(existingUser); // Возвращаем информацию о пользователе
+					}
+					else
+					{
+						return Unauthorized("Недействительный токен");
+					}
 				}
 				else
 				{
-					return Unauthorized("Недействительный токен");
+					// Если пользователь с токеном не найден, создаем нового анонимного пользователя
+					var newUser = UserFactory.CreateUser(UserType.Anonym);
+					await _repository.CreateAsync(newUser);
+
+					// Генерация нового токена для анонимного пользователя
+					var jwtToken = _jwtProvider.GenerateToken(newUser);
+					newUser.Token = jwtToken; // Сохранение токена
+					await _repository.UpdateAsync(newUser); // Обновление пользователя с новым токеном
+
+					return Ok(new { Token = jwtToken });
 				}
+			}
+			catch (Exception ex)
+			{
+				// Логирование ошибки
+				// _logger.LogError(ex, "Ошибка при обработке сессии пользователя.");
+				return StatusCode(500, "Внутренняя ошибка сервера");
 			}
 		}
 		// Метод для валидации токена
-		private ClaimsPrincipal ValidateToken(string token)
+		private ClaimsPrincipal ValidateToken(string token, User user)
 		{
 			var tokenHandler = new JwtSecurityTokenHandler();
 			var validationParameters = new TokenValidationParameters
@@ -71,7 +98,7 @@ namespace Food_Explorer.Controllers
 				ValidateIssuerSigningKey = true,
 				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
 				ValidateIssuer = true,
-				ValidIssuer = _options.Issuer,	
+				ValidIssuer = _options.Issuer,
 				ValidateAudience = true,
 				ValidAudience = _options.Audience,
 				ClockSkew = TimeSpan.Zero
@@ -79,12 +106,42 @@ namespace Food_Explorer.Controllers
 
 			try
 			{
-				return tokenHandler.ValidateToken(token, validationParameters, out _);
+				var claimsPrincipal = tokenHandler.ValidateToken(token, validationParameters, out _);
+
+				// Проверяем, соответствует ли ID пользователя в токене ID пользователя в базе данных
+				var userIdClaim = claimsPrincipal.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier);
+				if (userIdClaim == null || int.Parse(userIdClaim.Value) != user.Id)
+				{
+					return null; // Токен недействителен
+				}
+
+				return claimsPrincipal;
 			}
 			catch
 			{
 				return null; // Токен недействителен
 			}
+		}
+		public IActionResult SetAuthToken(string jwtToken)
+		{
+			// Создаем параметры куки
+			var cookieOptions = new CookieOptions
+			{
+				Expires = DateTimeOffset.UtcNow.AddDays(7), // Устанавливаем срок действия куки на 7 дней
+				HttpOnly = true, // Запретить доступ к куки через JavaScript
+				Secure = true, // Убедитесь, что куки передаются только через HTTPS
+				SameSite = SameSiteMode.Strict // Настройте политику SameSite
+			};
+
+			// Проверка на null для отладки
+			if (Response == null)
+			{
+				return StatusCode(500, "Response is null.");
+			}
+
+			// Устанавливаем куку с именем "AuthToken" и значением jwtToken
+			Response.Cookies.Append("AuthToken", jwtToken, cookieOptions);
+			return Ok("Кука аутентификации установлена");
 		}
 		public async Task<IActionResult> Catalog()
 		{

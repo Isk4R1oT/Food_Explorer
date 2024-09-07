@@ -12,13 +12,14 @@ var configuration = builder.Configuration;
 
 // Добавляем сервисы в контейнер.
 builder.Services.AddControllersWithViews();
-
-// Настройка параметров JWT
+builder.Services.AddHttpContextAccessor();
 builder.Services.Configure<JWTOptions>(configuration.GetSection(nameof(JWTOptions)));
 builder.Services.AddScoped<IJwtProvider, JWTProvider>();
 builder.Services.AddScoped<Context>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<Food_Explorer.Controllers.HomeController>();
+builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
+builder.Services.AddHostedService<AnonymousUserCleanupService>();
 
 // Получаем настройки JWT из конфигурации
 var secretKey = configuration.GetSection("JwtOptions:SecretKey").Value;
@@ -32,6 +33,7 @@ builder.Services.AddAuthentication(options =>
 	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
 	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
 })
+// Настройка параметров JWT
 .AddJwtBearer(options =>
 {
 	options.TokenValidationParameters = new TokenValidationParameters
@@ -59,9 +61,9 @@ builder.Services.AddSession(options =>
 builder.Services.AddDbContext<Context>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))); // Настройка контекста базы данных
 
-builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
 
-var app = builder.Build();
+
+	var app = builder.Build();
 
 void ConfigureServices(IServiceCollection services)
 {
@@ -88,6 +90,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Home}/{action=CatalogAdmin}");
+	pattern: "{controller=Home}/{action=Catalog}");
 
 app.Run();
