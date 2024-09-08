@@ -21,6 +21,6 @@ namespace Food_Explorer.Data_Access_Layer.Entities
         public Basket Basket { get; set; }
 
         public int Quantity { get; set; }
-    }
+    }    
 
 }

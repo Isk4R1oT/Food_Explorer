@@ -6,7 +6,7 @@ namespace Food_Explorer.Data_Access_Layer.Builders
 {
     public interface IOrderBuilder
     {
-        IOrderBuilder AddOrderItem(OrderItem orderItem);
+        IOrderBuilder AddOrderItem(ICollection<BasketItem>orderItem);
         IOrderBuilder SetAddress(Address address);
         IOrderBuilder SetOrderState(OrderStateNum orderStateNum);
         IOrderBuilder SetUser(User user);
@@ -23,12 +23,12 @@ namespace Food_Explorer.Data_Access_Layer.Builders
             _order = new Order();
         }
 
-        public IOrderBuilder AddOrderItem(OrderItem orderItem)
+        public IOrderBuilder AddOrderItem(ICollection<BasketItem>orderItem)
         {
             if (_order.OrderItems == null)
                 _order.OrderItems = new List<OrderItem>();
 
-            _order.OrderItems.Add(orderItem);
+            _order.OrderItems.Add((OrderItem)orderItem);
             return this;
         }
 

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Food_Explorer.Data_Access_Layer.JWT;
 using Food_Explorer.Data_Access_Layer.Builders;
+using Food_Explorer.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -18,8 +19,12 @@ var audience = configuration.GetSection("JwtOptions:Audience").Value;
 var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
 // Добавляем сервисы в контейнер.
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<IOrderBuilder, OrderBuilder>();
+builder.Services.AddScoped<ICommandHandler<CreateOrderCommand>, CreateOrderCommandHandler>();
+builder.Services.AddSingleton<IMediator,Mediator>();
 builder.Services.Configure<JWTOptions>(configuration.GetSection(nameof(JWTOptions)));
 builder.Services.AddScoped<IJwtProvider, JWTProvider>();
 builder.Services.AddScoped<Context>();
