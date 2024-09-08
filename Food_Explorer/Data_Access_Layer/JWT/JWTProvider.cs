@@ -10,6 +10,7 @@ namespace Food_Explorer.Data_Access_Layer.JWT
 	public interface IJwtProvider
 	{
 		string GenerateToken(User user);
+		ClaimsPrincipal ValidateToken(string token);
 	}
 
 	public class JWTProvider : IJwtProvider
@@ -44,7 +45,35 @@ namespace Food_Explorer.Data_Access_Layer.JWT
 
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
+		public ClaimsPrincipal ValidateToken(string token)
+		{
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var validationParameters = new TokenValidationParameters
+			{
+				ValidateIssuerSigningKey = true,
+				IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.SecretKey)),
+				ValidateIssuer = true,
+				ValidIssuer = _options.Issuer,
+				ValidateAudience = true,
+				ValidAudience = _options.Audience,
+				ClockSkew = TimeSpan.Zero
+			};
+
+			try
+			{
+				// Валидируем токен и извлекаем ClaimsPrincipal
+				var claimsPrincipal = tokenHandler.ValidateToken(token, validationParameters, out _);
+
+				// Возвращаем ClaimsPrincipal, если токен валиден
+				return claimsPrincipal;
+			}
+			catch
+			{
+				return null; // Токен недействителен
+			}
+		}
 	}
+
 	public class JWTOptions
 	{
 		public string SecretKey { get; set; } = string.Empty; // Секретный ключ для подписи токена

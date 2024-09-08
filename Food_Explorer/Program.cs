@@ -6,9 +6,16 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using Food_Explorer.Data_Access_Layer.JWT;
+using Food_Explorer.Data_Access_Layer.Builders;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+
+// Получаем настройки JWT из конфигурации
+var secretKey = configuration.GetSection("JwtOptions:SecretKey").Value;
+var issuer = configuration.GetSection("JwtOptions:Issuer").Value;
+var audience = configuration.GetSection("JwtOptions:Audience").Value;
+var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
 
 // Добавляем сервисы в контейнер.
 builder.Services.AddControllersWithViews();
@@ -19,23 +26,17 @@ builder.Services.AddScoped<Context>();
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<Food_Explorer.Controllers.HomeController>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHash>();
-builder.Services.AddHostedService<AnonymousUserCleanupService>();
-
-// Получаем настройки JWT из конфигурации
-var secretKey = configuration.GetSection("JwtOptions:SecretKey").Value;
-var issuer = configuration.GetSection("JwtOptions:Issuer").Value;
-var audience = configuration.GetSection("JwtOptions:Audience").Value;
-var signingKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-// Добавляем сервисы аутентификации
+builder.Services.AddScoped<UserServes>();
 builder.Services.AddAuthentication(options =>
 {
-	options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-	options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-// Настройка параметров JWT
-.AddJwtBearer(options =>
+	options.DefaultAuthenticateScheme =
+	JwtBearerDefaults.AuthenticationScheme;
+	options.DefaultChallengeScheme =
+	JwtBearerDefaults.AuthenticationScheme;
+
+}).AddJwtBearer(options =>
 {
+	var jwtSettings = configuration.GetSection("Jwt");
 	options.TokenValidationParameters = new TokenValidationParameters
 	{
 		ValidateIssuer = true,
@@ -50,7 +51,6 @@ builder.Services.AddAuthentication(options =>
 });
 
 // Другие регистрации сервисов
-builder.Services.AddHostedService<AppStartupService>();
 builder.Services.AddSession(options =>
 {
 	options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -71,25 +71,30 @@ void ConfigureServices(IServiceCollection services)
 
 	services.AddControllers();
 	services.AddScoped<Food_Explorer.Controllers.HomeController>();
+	services.AddControllers(); // or AddMvc() depending on your setup
+
+	// Register your services
+	services.AddScoped(typeof(IGenericRepository<>), typeof(Repository<>)); // Adjust as necessary
+	services.AddScoped<UserServes>(); // Register UserServes
+	services.AddScoped<IJwtProvider, JWTProvider>(); // Register IJwtProvider
 }
+	// Настройка конвейера HTTP-запросов.
+	if (!app.Environment.IsDevelopment())
+	{
+		app.UseExceptionHandler("/Home/Error");
+		app.UseHsts();
+	}
 
-// Настройка конвейера HTTP-запросов.
-if (!app.Environment.IsDevelopment())
-{
-	app.UseExceptionHandler("/Home/Error");
-	app.UseHsts();
-}
+	app.UseHttpsRedirection();
+	app.UseStaticFiles();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+	app.UseRouting();
 
-app.UseRouting();
+	app.UseAuthentication();
+	app.UseAuthorization();
 
-app.UseAuthentication();
-app.UseAuthorization();
+	app.MapControllerRoute(
+		name: "default",
+		pattern: "{controller=Home}/{action=Catalog}");
 
-app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Catalog}");
-
-app.Run();
+	app.Run();

@@ -27,11 +27,11 @@ namespace Food_Explorer.Data_Access_Layer
     public class UserServes
     {
         private readonly IPasswordHasher _passwordHasher;
-        private readonly Repository<User> _repository;
+        private readonly IGenericRepository<User> _repository;
         private readonly IJwtProvider _ijwtProvider;
 
         public UserServes(IPasswordHasher passwordHasher,
-            Repository<User> repository,
+            IGenericRepository<User> repository,
             IJwtProvider ijwtProvider)
         {
             _passwordHasher = passwordHasher;
@@ -58,16 +58,16 @@ namespace Food_Explorer.Data_Access_Layer
 
         }
 
-        public async Task<string> Login(string email, string password)
-        {
-            var user = await _repository.GetByEmail(email);
-            if (!_passwordHasher.Verify(password, user.Password))
-            {
-                throw new Exception("Login failed");
-            }
-            var token = _ijwtProvider.GenerateToken(user);
-            return token;
-        }
-    }
+		public async Task<string> Login(string email, string password)
+		{
+			var user = await _repository.GetByEmail(email);
+			if (user == null || !_passwordHasher.Verify(password, user.Password))
+			{
+				throw new Exception("Login failed");
+			}
+			var token = _ijwtProvider.GenerateToken(user);
+			return token;
+		}
+	}
     
 }

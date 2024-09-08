@@ -7,100 +7,81 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Food_Explorer.Controllers
 {
-    public class SignController : Controller
-    {
-        private readonly Context _context;
-        private readonly IPasswordHasher _passwordHasher;
-        private readonly IJwtProvider _jwtProvider;
+	public class SignController : Controller
+	{
+		private readonly Context _context;
+		private readonly IPasswordHasher _passwordHasher;
+		private readonly IJwtProvider _jwtProvider;
 
-        public SignController(Context context, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
-        {
-            _context = context;
-            _passwordHasher = passwordHasher;
-            _jwtProvider = jwtProvider;
-        }
-
-        public IActionResult SignIn()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> SignIn(string email, string password)
-        {
-            // Находим пользователя по email
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user != null)
-            {
-                // Проверяем, совпадают ли пароли
-                if (_passwordHasher.Verify(password,user.Password))
-                {
-                    // Сохраняем идентификатор пользователя в сессию
-                    HttpContext.Session.SetInt32("UserId", user.Id);
-
-                    // Определяем, куда перенаправить пользователя
-                    if (user.UserType == UserType.Client)
-                    {
-                        return RedirectToAction("Catalog", "Home");
-                    }
-                    else
-                    {
-                        return RedirectToAction("CatalogAdmin", "Home");
-                    }
-                }
-            }
-
-            // Если пользователь не найден или пароли не совпадают, возвращаем ошибку
-            ModelState.AddModelError("", "Неверный email или пароль");
-            return View();
-        }
-
-
-        public IActionResult SignUp()
-        {
-            return View();
-        }
-
-        [HttpPost]
-		public async Task<IActionResult> SignUp(string name, string email, string password)
+		public SignController(Context context, IPasswordHasher passwordHasher, IJwtProvider jwtProvider)
 		{
-			Response.ContentType = "text/html; charset=utf-8";
-			Response.WriteAsync($"<h1 style='margin: 20px 0px 0px 300px'>Вы зарегистрировались</h1>");
+			_context = context;
+			_passwordHasher = passwordHasher;
+			_jwtProvider = jwtProvider;
+		}
 
-			// Проверяем, есть ли пользователь с таким email
-			var existingClient = await _context.Users.FirstOrDefaultAsync(c => c.Email == email);
-			if (existingClient != null)
-			{
-				// Если пользователь уже существует, проверяем, был ли он ранее анонимным
-				if (existingClient.UserType == UserType.Anonym)
-				{
-					// Обновляем тип пользователя на "Client"                   
-					await new UserServes(_passwordHasher, new Repository<User>(), _jwtProvider).DeAnonim(existingClient, name, password);
+		public IActionResult SignIn()
+		{
+			return View();
+		}
 
-					// Генерируем новый JWT токен для аутентифицированного пользователя
-					var token = _jwtProvider.GenerateToken(existingClient);
+		[HttpPost]
+		public async Task<IActionResult> SignIn(string email, string password)
+		{			
+			var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-					// Возвращаем токен в ответе
-					return Ok(new { Token = token });
-				}
-				else
-				{
-					// Если пользователь не был анонимным, возвращаем ошибку
-					throw new Exception($"Пользователь с email {email} уже существует.");
+			if (user != null)
+			{			
+				if (_passwordHasher.Verify(password, user.Password))
+				{					
+					HttpContext.Session.SetInt32("UserId", user.Id);
+					
+					if (user.UserType == UserType.Client)
+					{
+						return RedirectToAction("Catalog", "Home");
+					}
+					else
+					{
+						return RedirectToAction("CatalogAdmin", "Home");
+					}
 				}
 			}
-			else
-			{
-				// Если пользователь не существует, создаем нового
-				var client = await new UserServes(_passwordHasher, new Repository<User>(), _jwtProvider).Registr(name, email, password);
+		
+			ModelState.AddModelError("", "Неверный email или пароль");
+			return View();
+		}
 
-				// Генерируем новый JWT токен для нового пользователя
-				var token = _jwtProvider.GenerateToken(client);
+		public IActionResult SignUp()
+		{
+			return View();
+		}
 
-				// Возвращаем токен в ответе
-				return Ok(new { Token = token });
+		[HttpPost]
+		public async Task<IActionResult> SignUp(string name, string email, string password)
+		{			
+			var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+			if (existingUser != null)
+			{			
+				ModelState.AddModelError("", "Пользователь с таким email уже существует.");
+				return View();
 			}
+			
+			var newUser = new Client
+			{
+				Name = name,
+				Email = email,
+				Password = _passwordHasher.Generate(password), 
+				UserType = UserType.Client 
+			};
+
+			_context.Users.Add(newUser);
+			await _context.SaveChangesAsync();
+
+		
+			var token = _jwtProvider.GenerateToken(newUser);
+
+			
+			return Ok(new { Token = token });
 		}
 	}
 }

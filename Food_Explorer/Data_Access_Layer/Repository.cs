@@ -11,9 +11,9 @@ namespace Food_Explorer.Data_Access_Layer
         Task UpdateAsync(T entity);
         Task DeleteAsync(T entity);
         Task<T> GetByEmail(string email);
-        Task<User> GetByToken(string token); 
-        Task<IEnumerable<User>> GetAnonymousUsersOlderThan(DateTime dateTime);
+        Task<User> GetByToken(string token);         
 
+        bool IsValidUser(string email,string password);
 
 
 	}
@@ -51,12 +51,20 @@ namespace Food_Explorer.Data_Access_Layer
         public async Task<User> GetByToken(string token)=>
             string.IsNullOrEmpty(token)?null: await _context.Users
 				.FirstOrDefaultAsync(u => u.Token == token);
+	
 
-		public async Task<IEnumerable<User>> GetAnonymousUsersOlderThan(DateTime thresholdDate)
+		public bool IsValidUser(string email, string password)
 		{
-			return await _context.Users
-				.Where(u => u.UserType == UserType.Anonym && u.CreatedAt < thresholdDate) 
-				.ToListAsync();
+            bool validEmail = _context.Users.Any(m => m.Email == email);
+            if (validEmail)
+            {
+                var user = _context.Users.Find(email);
+                if (new PasswordHash().Verify(password,user.Password))
+                {
+                    return true;
+                }
+            }
+            return false;
 		}
 	}
 }

@@ -54,8 +54,7 @@ namespace Food_Explorer.Data_Access_Layer
             modelBuilder.Entity<User>()
                 .HasDiscriminator<UserType>("UserType")
                 .HasValue<Client>(UserType.Client)
-                .HasValue<Admin>(UserType.Admin)
-                .HasValue<Anonym>(UserType.Anonym);
+                .HasValue<Admin>(UserType.Admin);               
 
         }
 

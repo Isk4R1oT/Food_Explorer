@@ -19,9 +19,7 @@ namespace Food_Explorer.Data_Access_Layer.Builders
                 case UserType.Client:
                     return new Client();
                 case UserType.Admin:
-                    return new Admin();
-                case UserType.Anonym:
-                    return new Anonym();
+                    return new Admin();               
                 default:
                     throw new ArgumentException($"Invalid UserType: {userType}");
             }
