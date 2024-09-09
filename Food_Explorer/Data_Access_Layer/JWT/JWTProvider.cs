@@ -31,9 +31,9 @@ namespace Food_Explorer.Data_Access_Layer.JWT
 
 			var claims = new[]
 			{
-			new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),			
-            new Claim(ClaimTypes.Role, user.UserType.ToString()) // Используем UserType для роли
-        };
+				new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),			
+				new Claim(ClaimTypes.Role, user.UserType.ToString()) // Используем UserType для роли
+			};
 
 			var token = new JwtSecurityToken(
 				issuer: _options.Issuer,

@@ -261,13 +261,6 @@ namespace Food_Explorer.Migrations
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Anonym", b =>
-                {
-                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");
-
-                    b.HasDiscriminator().HasValue(2);
-                });
-
             modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Client", b =>
                 {
                     b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");

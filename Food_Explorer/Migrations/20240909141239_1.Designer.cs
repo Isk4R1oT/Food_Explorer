@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food_Explorer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240907094734_4")]
-    partial class _4
+    [Migration("20240909141239_1")]
+    partial class _1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,10 +188,6 @@ namespace Food_Explorer.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("UserType")
                         .HasColumnType("int");
 
@@ -262,13 +258,6 @@ namespace Food_Explorer.Migrations
                     b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");
 
                     b.HasDiscriminator().HasValue(1);
-                });
-
-            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Anonym", b =>
-                {
-                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");
-
-                    b.HasDiscriminator().HasValue(2);
                 });
 
             modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Client", b =>

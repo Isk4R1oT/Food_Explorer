@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Food_Explorer.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20240904153802_2")]
+    [Migration("20240909144010_2")]
     partial class _2
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Food_Explorer.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Food_Explorer.Entities.Basket", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Basket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +44,7 @@ namespace Food_Explorer.Migrations
                     b.ToTable("Baskets");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.BasketItem", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.BasketItem", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -62,7 +62,7 @@ namespace Food_Explorer.Migrations
                     b.ToTable("BasketItems");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Order", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace Food_Explorer.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.OrderItem", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.OrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -123,7 +123,7 @@ namespace Food_Explorer.Migrations
                     b.ToTable("OrderItems");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Product", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -165,13 +165,16 @@ namespace Food_Explorer.Migrations
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.User", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
@@ -183,6 +186,10 @@ namespace Food_Explorer.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UserType")
@@ -229,70 +236,63 @@ namespace Food_Explorer.Migrations
                     b.ToTable("Address");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Dessert", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Dessert", b =>
                 {
-                    b.HasBaseType("Food_Explorer.Entities.Product");
+                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.Product");
 
                     b.HasDiscriminator().HasValue(2);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Drink", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Drink", b =>
                 {
-                    b.HasBaseType("Food_Explorer.Entities.Product");
+                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.Product");
 
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Entree", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Entree", b =>
                 {
-                    b.HasBaseType("Food_Explorer.Entities.Product");
+                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.Product");
 
                     b.HasDiscriminator().HasValue(0);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Admin", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Admin", b =>
                 {
-                    b.HasBaseType("Food_Explorer.Entities.User");
+                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");
 
                     b.HasDiscriminator().HasValue(1);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Anonym", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Client", b =>
                 {
-                    b.HasBaseType("Food_Explorer.Entities.User");
-
-                    b.HasDiscriminator().HasValue(2);
-                });
-
-            modelBuilder.Entity("Food_Explorer.Entities.Client", b =>
-                {
-                    b.HasBaseType("Food_Explorer.Entities.User");
+                    b.HasBaseType("Food_Explorer.Data_Access_Layer.Entities.User");
 
                     b.HasDiscriminator().HasValue(0);
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Basket", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Basket", b =>
                 {
-                    b.HasOne("Food_Explorer.Entities.User", "User")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.User", "User")
                         .WithOne("Basket")
-                        .HasForeignKey("Food_Explorer.Entities.Basket", "ClientId")
+                        .HasForeignKey("Food_Explorer.Data_Access_Layer.Entities.Basket", "ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.BasketItem", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.BasketItem", b =>
                 {
-                    b.HasOne("Food_Explorer.Entities.Basket", "Basket")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.Basket", "Basket")
                         .WithMany("BasketItems")
                         .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Food_Explorer.Entities.Product", "Product")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.Product", "Product")
                         .WithOne("BasketItem")
-                        .HasForeignKey("Food_Explorer.Entities.BasketItem", "Id")
+                        .HasForeignKey("Food_Explorer.Data_Access_Layer.Entities.BasketItem", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -301,7 +301,7 @@ namespace Food_Explorer.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Order", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Order", b =>
                 {
                     b.HasOne("Food_Explorer.Models.Address", "Address")
                         .WithMany()
@@ -309,7 +309,7 @@ namespace Food_Explorer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Food_Explorer.Entities.User", "User")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -320,15 +320,15 @@ namespace Food_Explorer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.OrderItem", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.OrderItem", b =>
                 {
-                    b.HasOne("Food_Explorer.Entities.Order", "Order")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.Order", "Order")
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Food_Explorer.Entities.Product", "Product")
+                    b.HasOne("Food_Explorer.Data_Access_Layer.Entities.Product", "Product")
                         .WithMany("OrderItem")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -339,17 +339,17 @@ namespace Food_Explorer.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Basket", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Basket", b =>
                 {
                     b.Navigation("BasketItems");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Order", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Order", b =>
                 {
                     b.Navigation("OrderItems");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.Product", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.Product", b =>
                 {
                     b.Navigation("BasketItem")
                         .IsRequired();
@@ -357,7 +357,7 @@ namespace Food_Explorer.Migrations
                     b.Navigation("OrderItem");
                 });
 
-            modelBuilder.Entity("Food_Explorer.Entities.User", b =>
+            modelBuilder.Entity("Food_Explorer.Data_Access_Layer.Entities.User", b =>
                 {
                     b.Navigation("Basket");
 

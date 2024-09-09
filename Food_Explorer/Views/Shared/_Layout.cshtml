@@ -19,7 +19,15 @@
                 <img src="~/img/Receipt.svg" alt="">
                 <p class="poppins-medium">Basket (0)</p>
             </a>
-            <img class="header-content-exit" src="~/img/SignOut.svg" alt="">
+            @if (HttpContextAccessor.HttpContext.Session.GetInt32("UserId").HasValue == false ||
+                HttpContextAccessor.HttpContext.Session.GetInt32("UserId") == 0)
+            {
+                <a href="/Sign/SignIn"><img class="header-content-exit" src="~/img/signIn.png" alt=""></a>
+            }
+            else
+            {
+                <a href="@Url.Action("Exit", "Sign")"><img class="header-content-exit" src="~/img/SignOut.svg" alt=""></a>
+            }
         </div>
     </header>
     <main>

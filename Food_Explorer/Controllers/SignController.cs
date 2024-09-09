@@ -58,30 +58,37 @@ namespace Food_Explorer.Controllers
 
 		[HttpPost]
 		public async Task<IActionResult> SignUp(string name, string email, string password)
-		{			
+		{
 			var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 			if (existingUser != null)
-			{			
+			{
 				ModelState.AddModelError("", "Пользователь с таким email уже существует.");
 				return View();
 			}
-			
+
 			var newUser = new Client
 			{
 				Name = name,
 				Email = email,
 				Password = _passwordHasher.Generate(password), 
-				UserType = UserType.Client 
+				UserType = UserType.Client,
+				CreatedAt = DateTime.Now
 			};
 
-			_context.Users.Add(newUser);
-			await _context.SaveChangesAsync();
-
-		
 			var token = _jwtProvider.GenerateToken(newUser);
 
-			
-			return Ok(new { Token = token });
-		}
-	}
+			newUser.Token = token;
+
+            await _context.Users.AddAsync(newUser);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Sign", "SignIn");
+        }
+
+		public IActionResult Exit()
+		{
+            HttpContext.Session.SetInt32("UserId", 0);
+            return RedirectToAction("SignIn", "Sign");
+        }
+    }
 }
