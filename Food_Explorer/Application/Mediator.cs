@@ -2,9 +2,14 @@
 
 namespace Food_Explorer.Application
 {
-	public interface IMediator
+	public interface ICommandHandler<TCommand>
 	{
-		void Send<TCommmand>(TCommmand command);
+		void Handle(TCommand command);
+	}
+
+public interface IMediator
+	{
+		void Send<TCommand>(TCommand command);
 	}
 	public class Mediator : IMediator
 	{
@@ -19,3 +24,4 @@ namespace Food_Explorer.Application
 		}
 	}
 }
+	

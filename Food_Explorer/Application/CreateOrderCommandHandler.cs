@@ -28,6 +28,8 @@ namespace Food_Explorer.Application
 										.SetOrderState(0)
 										.SetDate()
 										.Build();
+			_context.Orders.Add(newOrder);
+			_context.SaveChanges();
 
 		}
 	}
