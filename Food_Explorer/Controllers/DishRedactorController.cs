@@ -13,7 +13,7 @@ namespace Food_Explorer.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDish(IFormFile image, string name, int category, 
+        public async Task<IActionResult> AddDish(IFormFile? image, string name, int category, 
             string ingridients, string price, string description)
         {
             //проверка на пустоту
@@ -45,9 +45,45 @@ namespace Food_Explorer.Controllers
             return RedirectToAction("CatalogAdmin", "Home");
         }
 
-        public IActionResult EditDish(int id)
+        public async Task<IActionResult> EditDish(int id)
         {
-            return View();
+            var product = await new Repository<Product>().GetByIdAsync(id);
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDish(int id, IFormFile? image, string name, int category,
+            string ingridients, string price, string description)
+        {
+            //проверка на пустоту
+            if (string.IsNullOrWhiteSpace(name) || string.IsNullOrWhiteSpace(ingridients)
+                || string.IsNullOrWhiteSpace(price) || string.IsNullOrWhiteSpace(description))
+            {
+                //return View();
+            }
+
+            var editableProduct = await new Repository<Product>().GetByIdAsync(id);
+
+            if (image != null)
+            {
+                //base64-строка из файла(картинки)
+                string base64image;
+                using (var memoryStream = new MemoryStream())
+                {
+                    await image.CopyToAsync(memoryStream);
+                    byte[] fileBytes = memoryStream.ToArray();
+                    base64image = Convert.ToBase64String(fileBytes);
+                }
+                editableProduct.Image = base64image;
+            }
+            editableProduct.Name = name;
+            editableProduct.Description = description;
+            editableProduct.Ingredients = ingridients;
+            editableProduct.Price = int.Parse(price);
+            editableProduct.ProductType = (ProductType)category;
+
+            await new Repository<Product>().UpdateAsync(editableProduct);
+            return RedirectToAction("CatalogAdmin", "Home");
         }
     }
 }

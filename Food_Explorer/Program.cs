@@ -102,6 +102,6 @@ void ConfigureServices(IServiceCollection services)
 
 	app.MapControllerRoute(
 		name: "default",
-		pattern: "{controller=Home}/{action=Catalog}");
+		pattern: "{controller=Home}/{action=CatalogAdmin}");
 
 	app.Run();

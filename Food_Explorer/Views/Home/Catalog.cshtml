@@ -31,7 +31,13 @@
                     <form method="get" class="catalog-section-slider-items-item">
                         <img src="data:image/png;base64,@item.Image" alt="" class="catalog-section-slider-items-item-dish">
                         <a style="text-decoration: none" href="/ProductInfo/Product/?id=@item.Id"><h3 class="poppins-bold">@item.Name ></h3></a>
-                        <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length-30)...</p>
+                        @if (item.Description.Length > 33) {
+                            <p class="roboto-regular">@item.Description.Remove(30, item.Description.Length - 30)...</p>
+                        }
+                        else
+                        {
+                            <p class="roboto-regular">@item.Description...</p>
+                        }
                         <h2 class="roboto-regular-big">$@item.Price</h2>
                         <div class="catalog-section-slider-items-item-actions">
                             <img class="catalog-section-slider-items-item-actions-minus" src="~/img/Minus.svg" alt="" onclick="changeQuantity(this, -1)">

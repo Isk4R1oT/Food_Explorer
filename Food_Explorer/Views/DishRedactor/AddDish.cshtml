@@ -2,7 +2,7 @@
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Add Dish (Admin)";
 }
-<link rel="stylesheet" href="~/css/adddishstyle.css">
+<link rel="stylesheet" href="~/css/adddishstyle.css" asp-append-version="true">
 <div class="add-container">
     <div class="add-container-back-link">
         <a href="/Home/CatalogAdmin">
@@ -34,7 +34,7 @@
                 </select>
             </div>
             <div class="form-field">
-                <label class="roboto-regular">Image for dish</label>
+                <label class="roboto-regular">Ingridients</label>
                 <div class="form-field-ingridients">
                     <span class="form-field-ingridients-item-add">
                         <p class="roboto-regular">Add</p>
@@ -56,5 +56,5 @@
             </button>
         </form>
     </div>
-    <script src="~/js/editor.js"></script>
+    <script src="~/js/editor.js" asp-append-version="true"></script>
 </div>

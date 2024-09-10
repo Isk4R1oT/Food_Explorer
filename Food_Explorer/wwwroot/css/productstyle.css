@@ -181,11 +181,9 @@ main {
 
 .product-container-info-text-actions-button {
     background-color: #750310;
-    height: 100%;
     border-radius: 5px;
     padding: 12px 24px 12px 24px;
     border: none;
-    width: 162px;
     display: flex;
     align-items: center;
     justify-content: center;

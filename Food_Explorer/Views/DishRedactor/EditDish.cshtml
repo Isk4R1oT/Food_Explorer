@@ -1,77 +1,87 @@
 ﻿@{
     Layout = "_LayoutAdmin";
     ViewData["Title"] = "Edit Dish (Admin)";
+    @model Product;
 }
+<link rel="stylesheet" href="~/css/adddishstyle.css" asp-append-version="true">
 <div class="add-container">
     <div class="add-container-back-link">
-        <a href="/Home/CatalogAdmin">
+        <a href="javascript:history.back()">
             <img src="~/img/CaretLeft.svg" alt="">
             <h3 class="poppins-bold">back</h3>
         </a>
     </div>
     <div class="add-container-block">
-        <h2 class="poppins-medium">Adding a dish</h2>
-        <form method="post" class="add-container-block-form">
+        <h2 class="poppins-medium">Editing a dish</h2>
+        <form method="post" class="add-container-block-form" enctype="multipart/form-data">
             <div class="form-field">
                 <label class="roboto-regular">Image for dish</label>
                 <div class="form-field-file">
                     <img src="~/img/UploadSimple.svg" alt="">
                     <p class="poppins-medium">Select image</p>
                 </div>
+                <input style="display: none;" type="file" accept=".jpg, .png, .jpeg|image/*" name="image" id="imageInput">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Name</label>
-                <input type="text" placeholder="For example: Salada Ceasar" name="name">
+                <input type="text" value="@Model.Name" placeholder="For example: Salada Ceasar" name="name">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Category</label>
                 <select name="category">
-                    <option value="1">Food</option>
-                    <option value="2">Drinks</option>
-                    <option value="2">Desserts</option>
+                    @switch(Model.ProductType) {
+                        case (ProductType)1:
+                            <option value="0">Food</option>
+                            <option value="1" selected>Drinks</option>
+                            <option value="2">Desserts</option>
+                            break;
+                        case (ProductType)2:
+                            <option value="0">Food</option>
+                            <option value="1">Drinks</option>
+                            <option value="2" selected>Desserts</option>
+                            break;
+                        default:
+                            <option value="0">Food</option>
+                            <option value="1">Drinks</option>
+                            <option value="2">Desserts</option>
+                            break; 
+                    }
                 </select>
             </div>
             <div class="form-field">
-                <label class="roboto-regular">Image for dish</label>
+                <label class="roboto-regular">Ingridients</label>
                 <div class="form-field-ingridients">
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
-                    <span class="form-field-ingridients-item">
-                        <p class="roboto-regular">Bread</p>
-                        <img src="~/img/Close.svg" alt="">
-                    </span>
+                    @foreach(var item in Model.Ingredients.Split(','))
+                    {
+                        <span class="form-field-ingridients-item">
+                            <p class="roboto-regular">@item</p>
+                            <img src="~/img/Close.svg" alt="" class="remove-ingredient">
+                        </span>
+                    }
                     <span class="form-field-ingridients-item-add">
                         <p class="roboto-regular">Add</p>
                         <img src="~/img/Plus.svg" alt="">
                     </span>
                 </div>
+                <input type="hidden" name="ingridients" id="ingredientsList">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Price</label>
-                <input type="text" placeholder="$19.00" name="price">
+                <input type="text" value="@Model.Price" placeholder="$19.00" name="price">
             </div>
             <div class="form-field">
                 <label class="roboto-regular">Description</label>
-                <textarea name="description" placeholder="Briefly tell us about the dish, its ingredients and composition"></textarea>
+                <textarea name="description" placeholder="Briefly tell us about the dish, its ingredients and composition">@Model.Description</textarea>
             </div>
             <div class="add-container-block-form-send-buttons">
                 <button type="submit">
                     <p class="poppins-medium">Delete dish</p>
                 </button>
-                <button type="submit">
+                <button type="submit" name="id" value="@Model.Id">
                     <p class="poppins-medium">Save changes</p>
                 </button>
             </div>
         </form>
     </div>
 </div>
+<script src="~/js/editor.js" asp-append-version="true"></script>

@@ -16,5 +16,6 @@ namespace Food_Explorer.Controllers
             var product = await new Repository<Product>().GetByIdAsync(id);
             return View(product);
         }
+
     }
 }

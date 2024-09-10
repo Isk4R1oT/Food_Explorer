@@ -5,7 +5,7 @@
 }
 <div class="product-container">
     <div class="product-container-back-link">
-        <a href="/Home/CatalogAdmin">
+        <a href="javascript:history.back()">
             <img src="~/img/CaretLeft.svg" alt="">
             <h3 class="poppins-bold">back</h3>
         </a>
@@ -24,9 +24,9 @@
                 }
             </div>
             <div class="product-container-info-text-actions-admin">
-                <button type="submit" name="id" value="@Model.Id" class="product-container-info-text-actions-button">
+                <a href="/DishRedactor/EditDish/?id=@Model.Id" style="text-decoration: none" class="product-container-info-text-actions-button">
                     <p class="poppins-medium">Edit dish</p>
-                </button>
+                </a>
             </div>
         </div>
     </div>

@@ -73,8 +73,7 @@ main {
 .add-container {
     margin-top: 104px;
     width: 1122px;
-    height: 100%;
-    height: calc(972px - 104px - 77px);
+    min-height: calc(972px - 104px - 77px);
 }
 
 .add-container-back-link {
@@ -113,6 +112,7 @@ main {
     flex-wrap: wrap;
     gap: 32px;
     margin-top: 32px;
+    margin-bottom: 32px;
 }
 
 
@@ -202,7 +202,7 @@ main {
         font-family: "Roboto", sans-serif;
         font-weight: 400;
         padding: 14px;
-        color: #7C7C8A;
+        color: #C4C4CC;
     }
 
 
